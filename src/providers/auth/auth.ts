@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
+
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthProvider {
 
   apiURL : string = 'http://slimapp/';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storage: Storage) { }
 
   postData(credentials, type){
 
@@ -37,6 +39,17 @@ export class AuthProvider {
           res   =>{ resolve(res); }, 
           (err) =>{ reject(err); } 
         );
+    });
+  }
+
+  authenticate(){
+    let isLoggedIn = this.storage.get('isLoggedin').then((val) => {
+      if(val){
+        return true;
+      }
+      else {
+        return false;
+      }
     });
   }
 }
