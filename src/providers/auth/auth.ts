@@ -43,7 +43,7 @@ export class AuthProvider {
   }
 
   authenticate(){
-    let isLoggedIn = this.storage.get('isLoggedin').then((val) => {
+    this.storage.get('isLoggedin').then((val) => {
       if(val){
         return true;
       }
