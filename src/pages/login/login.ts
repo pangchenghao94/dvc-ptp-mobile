@@ -28,10 +28,6 @@ export class LoginPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-
   login(){
     let userData = {"username"  : this.loginForm.get('username').value, 
                     "password"  : this.loginForm.get('password').value};
