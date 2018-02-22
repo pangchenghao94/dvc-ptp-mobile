@@ -4,6 +4,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { HomePage } from '../home/home';
 import { AuthProvider } from '../../providers/auth/auth'
 import { Storage } from '@ionic/storage';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,11 +22,14 @@ export class LoginPage {
   loginForm: any;
   showWrongPassword: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private auth: AuthProvider, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private auth: AuthProvider, private storage: Storage, 
+    private alertCtrl: AlertController) {
+
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+
   }
 
   login(){
@@ -55,6 +59,12 @@ export class LoginPage {
       }
     }, 
     (err) =>{
+      let alert = this.alertCtrl.create({
+        title: 'Server Error',
+        subTitle: 'Please contact administration.',
+        buttons: ['Dismiss']
+      });
+      alert.present();
       console.log("API error: " + err);
     });
   }
