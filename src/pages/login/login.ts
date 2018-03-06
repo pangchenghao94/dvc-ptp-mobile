@@ -36,7 +36,7 @@ export class LoginPage {
     let userData = {"username"  : this.loginForm.get('username').value, 
                     "password"  : this.loginForm.get('password').value};
 
-    this.auth.postData(userData, "api/login").then((result) => {
+    this.auth.postData(userData, "api/mobileLogin").then((result) => {
       let responseData:any = result;
 
       if(responseData.status == "2") {
@@ -50,7 +50,7 @@ export class LoginPage {
           this.showWrongPassword = true;
 
         else{
-          this.storage.set('userData', JSON.stringify(responseData.data)); 
+          this.storage.set('userData', responseData.data); 
           this.storage.set('isLoggedin', 'true');
           
           this.navCtrl.push(HomePage);

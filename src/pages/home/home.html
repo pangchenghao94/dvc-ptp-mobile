@@ -3,16 +3,40 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Today Assignment</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <!-- <h3>Ionic Menu Starter</h3>
 
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
   </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <button ion-button secondary menuToggle>Toggle Menu</button> -->
+
+  <ion-card (click)="testing()">
+    <ion-card-header>
+      Header
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col><strong>Testing</strong></ion-col>
+          <ion-col col-8>12345</ion-col>          
+        </ion-row>
+        <ion-row>
+          <ion-col><strong>Testing again</strong></ion-col>
+          <ion-col col-8>
+            no 12, jalan kajang mewah 8,
+            taman kajang mewah,
+            suteraresidences seksyen 3 lama and baru,
+            43000, ldkjlkadsf.
+          </ion-col>          
+        </ion-row>
+      </ion-grid>  
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
