@@ -2,7 +2,6 @@ import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { GeneralProvider } from '../../providers/general/general';
-import { Assignment } from '../../models/assignment';
 import { InDListPage } from '../InD-list/InD-list';
 
 @Component({

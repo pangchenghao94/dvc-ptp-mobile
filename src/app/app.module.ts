@@ -15,6 +15,8 @@ import { LoginPage } from '../pages/login/login';
 import { GeneralProvider } from '../providers/general/general';
 import { InDListPage } from '../pages/InD-list/InD-list';
 import { InDFormPage } from '../pages/InD-form/InD-form';
+import { ModalGpsPage } from '../pages/modal/modal-gps/modal-gps';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { InDFormPage } from '../pages/InD-form/InD-form';
     ListPage,
     LoginPage,
     InDListPage,
-    InDFormPage
+    InDFormPage,
+    ModalGpsPage
   ],
   imports: [
     BrowserModule,
@@ -38,14 +41,16 @@ import { InDFormPage } from '../pages/InD-form/InD-form';
     ListPage,
     LoginPage,
     InDListPage,
-    InDFormPage
+    InDFormPage,
+    ModalGpsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    GeneralProvider
+    GeneralProvider,
+    Geolocation
   ]
 })
 export class AppModule {}

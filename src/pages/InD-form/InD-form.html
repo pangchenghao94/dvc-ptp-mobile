@@ -8,14 +8,29 @@
 
   <ion-navbar>
     <ion-title>
-        <!-- <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon> -->
-        I&D Form
-      </ion-title>
+      <!-- <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon> -->
+      I&D Form
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openGPSModal()">
+        <ion-icon ios="ios-pin" md="md-pin" item-end></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <form [formGroup]="InDForm" (ngSubmit)="submit()" novalidate>
+      <ion-item>
+        <ion-label floating>postcode</ion-label>
+        <ion-input type="text" formControlName="postcode"></ion-input>
+      </ion-item>
+
+      <button ion-button type="submit" block margin-top>Add Assignment</button>
+    </form>
 
 </ion-content>

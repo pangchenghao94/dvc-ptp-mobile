@@ -9,6 +9,20 @@ export class GeneralProvider {
   constructor(public http: HttpClient, private storage: Storage, private alertCtrl: AlertController) {
   }
 
+  // generateJSONObj(key, value){
+  //   let counter = 0;
+  //   let data: any = {};
+
+  //   key.forEach(element => {
+  //     console.log(element);
+  //     data. = value[counter];
+  //     counter ++;
+  //   });
+
+  //   console.log(data);
+  //   return data;
+  // }
+
   getAuthObject(){
     return this.storage.get('userData').then((val) => {
       let data: any = {   "token"     : val.token,
@@ -17,10 +31,10 @@ export class GeneralProvider {
     });
   }
 
-  displayAlert(title:string, subTitle: string){
+  displayAlert(title:string, message: string){
     let alert = this.alertCtrl.create({
       title: title,
-      subTitle: subTitle,
+      message: message,
       buttons: ['Dismiss']
     });
     alert.present();
