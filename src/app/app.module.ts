@@ -13,13 +13,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import { LoginPage } from '../pages/login/login';
 import { GeneralProvider } from '../providers/general/general';
+import { InDListPage } from '../pages/InD-list/InD-list';
+import { InDFormPage } from '../pages/InD-form/InD-form';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    InDListPage,
+    InDFormPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,9 @@ import { GeneralProvider } from '../providers/general/general';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    InDListPage,
+    InDFormPage
   ],
   providers: [
     StatusBar,
