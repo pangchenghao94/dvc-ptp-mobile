@@ -20,11 +20,12 @@ export class InDListPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InDListPage');
   }
 
   addAssignment(){
     this.navCtrl.push(InDFormPage);
   }
+
+
 
 }

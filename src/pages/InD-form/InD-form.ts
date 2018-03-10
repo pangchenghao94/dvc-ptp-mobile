@@ -38,7 +38,7 @@ export class InDFormPage {
 
   openGPSModal(){
     let gpsModal = this.modalCtrl.create(ModalGpsPage, {"data": this.coordinate});
-
+    
     gpsModal.onDidDismiss(data=>{
       console.log(data);
     });

@@ -17,6 +17,7 @@ import { InDListPage } from '../pages/InD-list/InD-list';
 import { InDFormPage } from '../pages/InD-form/InD-form';
 import { ModalGpsPage } from '../pages/modal/modal-gps/modal-gps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     GeneralProvider,
-    Geolocation
+    Geolocation,
+    GoogleMaps
   ]
 })
 export class AppModule {}
