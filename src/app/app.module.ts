@@ -3,31 +3,15 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
-import { LoginPage } from '../pages/login/login';
 import { GeneralProvider } from '../providers/general/general';
-import { InDListPage } from '../pages/InD-list/InD-list';
-import { InDFormPage } from '../pages/InD-form/InD-form';
-import { ModalGpsPage } from '../pages/modal/modal-gps/modal-gps';
-import { Geolocation } from '@ionic-native/geolocation';
-import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    ListPage,
-    LoginPage,
-    InDListPage,
-    InDFormPage,
-    ModalGpsPage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -37,22 +21,14 @@ import { GoogleMaps } from '@ionic-native/google-maps';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage,
-    LoginPage,
-    InDListPage,
-    InDFormPage,
-    ModalGpsPage
+    MyApp
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    GeneralProvider,
-    Geolocation,
-    GoogleMaps
+    GeneralProvider
   ]
 })
 export class AppModule {}

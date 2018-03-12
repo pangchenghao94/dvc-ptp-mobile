@@ -85,12 +85,12 @@
     <plugin name="cordova-plugin-geolocation" spec="~2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
+    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
+    <allow-navigation href="http://192.168.43.169:8100" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <plugin name="cordova-plugin-googlemaps" spec="^2.2.5">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAu-ihkB7T36-bKuUzDDILMuub9Jp1_rZw" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyBPr6eDsnUiP2RCsv_LY-hPNzNsO7JBZqI" />
     </plugin>
-    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
-    <allow-navigation href="http://192.168.43.169:8100" />
-    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
-    <engine name="android" spec="6.4.0" />
+    <engine name="android" spec="7.0.0" />
 </widget>

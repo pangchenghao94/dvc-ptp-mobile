@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { GeneralProvider } from '../../providers/general/general';
-import { InDListPage } from '../InD-list/InD-list';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -12,8 +12,7 @@ import { InDListPage } from '../InD-list/InD-list';
 export class HomePage {
   @ViewChild('content') content: ElementRef;
 
-  constructor(public navCtrl: NavController, private auth: AuthProvider, private general: GeneralProvider, 
-    private alertCtrl: AlertController, private renderer: Renderer2) {
+  constructor(public navCtrl: NavController, private auth: AuthProvider, private general: GeneralProvider, private renderer: Renderer2) {
   }
 
   ngAfterViewInit() {
@@ -24,33 +23,49 @@ export class HomePage {
     return this.auth.authenticate();
   }
 
-  getAssignments(){
-    let alert = this.alertCtrl.create({
-      title: 'Server Error',
-      subTitle: 'Please contact administration.',
-      buttons: ['Dismiss']
+  doRefresh(refresher) {
+    while (this.content.nativeElement.hasChildNodes()) {
+      this.content.nativeElement.removeChild(this.content.nativeElement.lastChild);
+    }
+
+    this.getAssignments()
+    .then(
+      (result)=>{refresher.complete();},
+      (err)=>{refresher.complete();})
+    .catch(err=>{
+      this.general.displayUnexpectedError(err);
+      refresher.complete();      
     });
 
-    this.general.getAuthObject().then((val)=>{
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
+  getAssignments(): Promise<any>{
+
+    return this.general.getAuthObject().then((val)=>{
       this.auth.postData(val, "api/assignment/getPDKAssignmentList").then((result) => {
         let responseData:any = result;
         
         if(responseData.status == "0"){
-          alert.setTitle("Unauthorized Access");
-          alert.setSubTitle(responseData.message);
-          alert.present();
+          this.general.displayUnauthorizedAccessAlert(responseData.message);
         }
         
         else{
-          this.generateAssignmentList(responseData.data);
+          if(this.generateAssignmentList(responseData.data)){
+            return true;
+          }
         }
       }, 
       (err) =>{
-        alert.setTitle("Server Error");
-        alert.setSubTitle("Please contact administration. Error: API Error.")
-        alert.present();
+        this.general.displayAPIErrorAlert();
       });
-    }).catch(error=>{ });
+    })
+    .catch(err => { 
+      this.general.displayUnexpectedError(err);      
+    });
   }
 
   testing(){
@@ -122,9 +137,10 @@ export class HomePage {
         this.renderer.appendChild(this.content.nativeElement, element);
       });
     }
+    return true;
   }
 
   assignmentClick(id: any){
-    this.navCtrl.setRoot(InDListPage);
+    this.navCtrl.push("InDFormPage", {"id" : id, "mode": 0});
   }  
 }

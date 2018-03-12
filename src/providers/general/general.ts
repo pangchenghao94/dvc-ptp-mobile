@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { AlertController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 
 @Injectable()
 export class GeneralProvider {
 
-  constructor(public http: HttpClient, private storage: Storage, private alertCtrl: AlertController) {
+  constructor(public http: HttpClient, private storage: Storage, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
   }
 
   // generateJSONObj(key, value){
@@ -22,6 +22,39 @@ export class GeneralProvider {
   //   console.log(data);
   //   return data;
   // }
+  getPasswordPattern(): string{
+    return "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,25}$";
+  }
+
+  getGenderStr(gender: any) : string{
+    if(gender == 0)
+      return "Female";
+    else if(gender == 1)
+      return "Male";
+    else
+      return "error"; 
+  }
+
+  getUserTypeDesc(userType: any) : string{
+    if(userType == 0)
+      return "Superadmin";
+    else if(userType == 1)
+      return "Admin";
+    else if(userType == 2)
+      return "Inspector";
+    else if(userType == 3)
+      return "PDK";
+    else if(userType == 4)
+      return "Clerk";
+    else
+      return "error"; 
+  }
+
+  getUserID(){
+    return this.storage.get('userData').then((val) => {
+      return val.user_id;
+    });
+  }
 
   getAuthObject(){
     return this.storage.get('userData').then((val) => {
@@ -38,5 +71,42 @@ export class GeneralProvider {
       buttons: ['Dismiss']
     });
     alert.present();
+  }
+
+  displayAPIErrorAlert(){
+    let alert = this.alertCtrl.create({
+      title: "Server Error",
+      message: "Please contact administration. Error: API Error.",
+      buttons: ['Dismiss']
+    });
+    alert.present();
+  }
+
+  displayUnauthorizedAccessAlert(message){
+    let alert = this.alertCtrl.create({
+      title: "Unauthorized Access",
+      message: message,
+      buttons: ['Dismiss']
+    });
+    alert.present();
+  }
+
+  displayUnexpectedError(error: any){
+    let alert = this.alertCtrl.create({
+      title: "Unexpected Error",
+      message: error,
+      buttons: ['Dismiss']
+    });
+    alert.present();
+  }
+
+  displayLoading(message?: string){
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: message
+    });
+  
+    loading.present();
+    return loading;
   }
 }

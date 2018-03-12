@@ -4,12 +4,16 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      <ion-icon ios="ios-home" md="md-home"></ion-icon>
+      <ion-icon ios="ios-home" md="md-home" class="padding-right-10"></ion-icon>
        Today Assignment
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
   <div #content></div>
 </ion-content>

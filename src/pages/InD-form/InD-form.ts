@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModalGpsPage } from '../modal/modal-gps/modal-gps';
-import { Geolocation } from '@ionic-native/geolocation';
+import { GeneralProvider } from '../../providers/general/general';
 
 /**
  * Generated class for the InDFormPage page.
@@ -19,32 +19,34 @@ import { Geolocation } from '@ionic-native/geolocation';
 export class InDFormPage {
   InDForm: any;
   coordinate: any;
+  isModal: boolean;
+  mode: number; //add = 0 , 1 = edit
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private modalCtrl: ModalController, private geoLocation: Geolocation) {
-    this.InDForm = this.fb.group({
-      postcode: ['', Validators.required],
-      gps_location: ''
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private modalCtrl: ModalController, 
+    private general: GeneralProvider) {
+
+    this.InDForm = this.fb.group({ 
+      assignment_id: '',
+      poName: ['', Validators.required],
+      poID: '',
+      pShortAddr: ''
     });
-
-    this.geoLocation.getCurrentPosition().then((result) => {
-      this.coordinate = result.coords;
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
   }
 
   ionViewDidLoad() {
+    this.InDForm.patchValue({assignment_id: this.navParams.get('id')});
+    this.mode = this.navParams.get('mode');
   }
 
   openGPSModal(){
-    let gpsModal = this.modalCtrl.create(ModalGpsPage, {"data": this.coordinate});
-    
+    let gpsModal = this.modalCtrl.create(ModalGpsPage, {"coordinates" : this.coordinate});
     gpsModal.onDidDismiss(data=>{
-      console.log(data);
+      this.isModal = false;
+      this.coordinate = data;
     });
-    
+
+    this.isModal = true;
     gpsModal.present();
-    
   }
 
 }

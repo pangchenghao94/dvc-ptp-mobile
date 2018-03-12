@@ -3,11 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import { LoginPage } from '../pages/login/login';
-import { InDListPage } from '../pages/InD-list/InD-list';
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -15,7 +10,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   //rootPage: any = HomePage;
-  rootPage: any = LoginPage;
+  rootPage: any = "LoginPage";
+  activePage: any;
 
   pages: Array<{title: string, component: any, icon: string}>;
 
@@ -24,9 +20,9 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage, icon: "home" },
-      { title: 'List', component: ListPage, icon: "list-box" },
-      { title: 'I & D', component: InDListPage, icon: "list-box" },      
+      { title: 'Home', component: 'HomePage', icon: "home" },
+      { title: 'I & D', component: 'InDListPage', icon: "list-box" },    
+      { title: 'Profile', component: 'ProfilePage', icon: "person" },              
       { title: 'Logout', component: null, icon: "log-out"}
     ];
 
@@ -48,7 +44,11 @@ export class MyApp {
       this.nav.setRoot(page.component);
     }
     else{
-      this.nav.setRoot(LoginPage);
+      this.nav.setRoot('LoginPage');
     }
+  }
+
+  checkActive(page){
+    return page == this.activePage;
   }
 }

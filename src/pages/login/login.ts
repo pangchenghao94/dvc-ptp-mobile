@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder } from '@angular/forms';
-import { HomePage } from '../home/home';
 import { AuthProvider } from '../../providers/auth/auth'
 import { Storage } from '@ionic/storage';
 import { GeneralProvider } from '../../providers/general/general';
@@ -26,6 +25,10 @@ export class LoginPage {
   }
 
   login(){
+    let loading = this.general.displayLoading("Please wait...");
+  
+    loading.present();
+
     let userData = {"username"  : this.loginForm.get('username').value, 
                     "password"  : this.loginForm.get('password').value};
 
@@ -46,11 +49,13 @@ export class LoginPage {
           this.storage.set('userData', responseData.data); 
           this.storage.set('isLoggedin', 'true');
           
-          this.navCtrl.setRoot(HomePage);
+          this.navCtrl.setRoot("HomePage");
         }
       }
+      loading.dismiss();
     }, 
     (err) =>{
+      loading.dismiss();
       this.general.displayAlert("Server Error", "Please contact administration");
       console.log("API error: " + err);
     });

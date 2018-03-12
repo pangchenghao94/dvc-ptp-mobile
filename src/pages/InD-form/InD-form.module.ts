@@ -9,5 +9,6 @@ import { InDFormPage } from './InD-form';
   imports: [
     IonicPageModule.forChild(InDFormPage),
   ],
+  exports: [ InDFormPage ]
 })
 export class InDFormPageModule {}
