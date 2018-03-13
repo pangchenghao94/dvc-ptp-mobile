@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { GeneralProvider } from '../../providers/general/general';
 import { AuthProvider } from '../../providers/auth/auth';
 import { User } from '../../models/user';
-import { ModalUpdateUserDetailsPage } from '../modal/modal-update-user-details/modal-update-user-details';
-import { ModalChangePasswordPage } from '../modal/modal-change-password/modal-change-password';
 
 @IonicPage()
 @Component({

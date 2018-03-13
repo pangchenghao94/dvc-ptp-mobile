@@ -27,9 +27,18 @@ export class InDFormPage {
 
     this.InDForm = this.fb.group({ 
       assignment_id: '',
+      premise_close: '',
+      premise_empty: '',
       poName: ['', Validators.required],
       poID: '',
-      pShortAddr: ''
+      pShortAddr: '',
+      no_familyMember: '',
+      no_fever: '',
+      no_out_breeding: '',
+      no_in_breeding: '',
+      container_type: '',
+      no_pot_out_breeding: '',
+      no_pot_in_breeding: ''
     });
   }
 
