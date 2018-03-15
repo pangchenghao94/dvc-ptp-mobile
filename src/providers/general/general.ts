@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { AlertController, LoadingController } from 'ionic-angular';
+import { AlertController, LoadingController, ToastController } from 'ionic-angular';
 
 @Injectable()
 export class GeneralProvider {
 
-  constructor(public http: HttpClient, private storage: Storage, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+  constructor(public http: HttpClient, private storage: Storage, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
   }
 
   // generateJSONObj(key, value){
@@ -108,5 +108,14 @@ export class GeneralProvider {
   
     loading.present();
     return loading;
+  }
+
+  displayToast(text){
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
   }
 }

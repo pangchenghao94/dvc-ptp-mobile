@@ -27,33 +27,23 @@
 </ion-header>
 
 
-<ion-content padding [style.opacity]="isModal ? 0 : 1">
-  <form [formGroup]="InDForm" (ngSubmit)="submit()" novalidate>
+<ion-content [style.opacity]="isModal ? 0 : 1">
+  <form [formGroup]="InDForm" novalidate>
     
-    <ion-list text-wrap>
-      <ion-list-header no-lines text-center text-uppercase>
+      <ion-item-divider color="light" text-center text-uppercase>
         <strong>Premise Details</strong>
-      </ion-list-header>
+      </ion-item-divider>
 
       <ion-row>
-        <ion-col col-6>
-          <ion-item no-lines>
-            <ion-label>Empty</ion-label>
-            <ion-checkbox formControlName="premise_empty"></ion-checkbox>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6>
-          <ion-item no-lines>
-            <ion-label>Closed</ion-label>
-            <ion-checkbox formControlName="premise_close"></ion-checkbox>
-          </ion-item>
-        </ion-col>
+        <ion-item no-lines col-6>
+          <ion-label>Empty</ion-label>
+          <ion-checkbox formControlName="premise_empty"></ion-checkbox>
+        </ion-item>
+        <ion-item no-lines col-6>
+          <ion-label>Closed</ion-label>
+          <ion-checkbox formControlName="premise_close"></ion-checkbox>
+        </ion-item>
       </ion-row>
-
-      <ion-item>
-        <ion-label floating>Full Name</ion-label>
-        <ion-input type="text" formControlName="poName"></ion-input>
-      </ion-item>
 
       <ion-item>
         <ion-label floating>Full Name</ion-label>
@@ -72,119 +62,97 @@
 
       <ion-item>
         <ion-label floating>No. of Family Members</ion-label>
-        <ion-input type="text" formControlName="no_familyMember"></ion-input>
+        <ion-input type="number" formControlName="no_familyMember"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>No. of Fever Member</ion-label>
-        <ion-input type="text" formControlName="no_fever"></ion-input>
+        <ion-input type="number" formControlName="no_fever"></ion-input>
       </ion-item>
 
-      <ion-item-divider>
-        
-      </ion-item-divider>
-
-      <ion-list-header no-lines text-center margin-top text-uppercase>
+      <ion-item-divider color="light" text-center text-uppercase margin-top>
         <strong>Aedes Mosquitoes Larvae Breeding Finding</strong>
-      </ion-list-header>
+      </ion-item-divider>
 
       <ion-row>
         <ion-item col-6>
           <ion-label floating>Outside</ion-label>
-          <ion-input type="text" formControlName="no_out_breeding"></ion-input>
+          <ion-input type="number" formControlName="no_out_breeding"></ion-input>
         </ion-item>
         <ion-item col-6>
           <ion-label floating>Inside</ion-label>
-          <ion-input type="text" formControlName="no_in_breeding"></ion-input>
+          <ion-input type="number" formControlName="no_in_breeding"></ion-input>
         </ion-item>
       </ion-row>
-      
+
       <ion-item>
         <ion-label floating>Container Type</ion-label>
         <ion-input type="text" formControlName="container_type"></ion-input>
       </ion-item>
 
-      <ion-list-header no-lines text-center margin-top text-uppercase>
+      <ion-item-divider color="light" text-center text-uppercase margin-top  text-wrap>
         <strong>Potential Aedes Mosquitoes Larvae Breeding Finding</strong>
-      </ion-list-header>
-      
-      <ion-item-group>
-        <ion-row>
-          <ion-item col-6>
-            <ion-label floating>Outside</ion-label>
-            <ion-input type="text" formControlName="no_pot_out_breeding"></ion-input>
-          </ion-item>
-      
-          <ion-item col-6>
-            <ion-label floating>Inside</ion-label>
-            <ion-input type="text" formControlName="no_pot_in_breeding"></ion-input>
-          </ion-item>
-        </ion-row>
+      </ion-item-divider>
 
-        <ion-item>
-          <ion-label floating>No. of Fever Member</ion-label>
-          <ion-input type="text" formControlName="no_fever"></ion-input>
+      <ion-row>
+        <ion-item col-6>
+          <ion-label floating>Outside</ion-label>
+          <ion-input type="number" formControlName="no_pot_out_breeding"></ion-input>
         </ion-item>
-
-        <ion-item>
-          <ion-label floating>No. of Fever Member</ion-label>
-          <ion-input type="text" formControlName="no_fever"></ion-input>
+    
+        <ion-item col-6>
+          <ion-label floating>Inside</ion-label>
+          <ion-input type="number" formControlName="no_pot_in_breeding"></ion-input>
         </ion-item>
-      </ion-item-group>
+      </ion-row>
 
-      <ion-list-header no-lines text-center margin-top text-uppercase>
+      <ion-item-divider color="light" text-center text-uppercase margin-top text-wrap>
         <strong>Action</strong>
-      </ion-list-header>
+      </ion-item-divider>
       
       <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-label>Abating</ion-label>
+        <ion-checkbox formControlName="act_abating"></ion-checkbox>
       </ion-item>
       <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-label>Destroy Breeding Area</ion-label>
+        <ion-checkbox formControlName="act_destroy"></ion-checkbox>
       </ion-item>
       <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-label>Education</ion-label>
+        <ion-checkbox formControlName="act_education"></ion-checkbox>
       </ion-item>
       <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-label>Pamphlet</ion-label>
+        <ion-checkbox formControlName="act_pamphlet"></ion-checkbox>
       </ion-item>
       <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-label>Notice Sek. 8</ion-label>
+        <ion-checkbox formControlName="act_sek8"></ion-checkbox>
       </ion-item>
       <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item no-lines>
-        <ion-label>Empty</ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <button ion-button type="submit" block margin-top>Add Assignment</button>
+        <ion-label>Notice Sek. 5(3)</ion-label>
+        <ion-checkbox formControlName="act_sek5"></ion-checkbox>
       </ion-item>
     
-    </ion-list>
+  
   </form>
+
+    <ion-row>
+      <button ion-button block col-4 outline (click)="openExhibitModal()">Exhibit</button>
+      <button ion-button block col-4 outline>Sek. 8</button>
+      <button ion-button block col-4 outline>Sek. 5</button>
+    </ion-row>
+    
+    <ion-row margin-top>
+      <button ion-button block col-6>
+        <ion-icon ios="ios-add-circle" md="md-add-circle" class="padding-right-10"></ion-icon>
+         Add Assignment
+      </button>      
+      <button ion-button block col-6 color="danger">
+        <ion-icon ios="ios-trash" md="md-trash" class="padding-right-10"></ion-icon>
+         Cancel
+      </button>
+    </ion-row>
 
 </ion-content>

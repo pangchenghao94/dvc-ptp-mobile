@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModalGpsPage } from '../modal/modal-gps/modal-gps';
 import { GeneralProvider } from '../../providers/general/general';
 
 /**
@@ -27,8 +26,8 @@ export class InDFormPage {
 
     this.InDForm = this.fb.group({ 
       assignment_id: '',
-      premise_close: '',
-      premise_empty: '',
+      premise_close: 'false',
+      premise_empty: 'false',
       poName: ['', Validators.required],
       poID: '',
       pShortAddr: '',
@@ -38,7 +37,13 @@ export class InDFormPage {
       no_in_breeding: '',
       container_type: '',
       no_pot_out_breeding: '',
-      no_pot_in_breeding: ''
+      no_pot_in_breeding: '',
+      act_abating: 'false',
+      act_destroy: 'false',
+      act_education: 'false',
+      act_pamphlet: 'false',
+      act_sek5: 'false',
+      act_sek8: 'false'
     });
   }
 
@@ -48,7 +53,7 @@ export class InDFormPage {
   }
 
   openGPSModal(){
-    let gpsModal = this.modalCtrl.create(ModalGpsPage, {"coordinates" : this.coordinate});
+    let gpsModal = this.modalCtrl.create("ModalGpsPage", {"coordinates" : this.coordinate});
     gpsModal.onDidDismiss(data=>{
       this.isModal = false;
       this.coordinate = data;
@@ -56,6 +61,15 @@ export class InDFormPage {
 
     this.isModal = true;
     gpsModal.present();
+  }
+
+  openExhibitModal(){
+    let exhibitModal = this.modalCtrl.create("ModalExhibitPage");
+    exhibitModal.onDidDismiss(data=>{
+      console.log("exhibit modal dismissed");
+    });
+
+    exhibitModal.present();
   }
 
 }
