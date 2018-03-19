@@ -15,7 +15,10 @@ export class HomePage {
   emptyAssignment: boolean = false;
 
   constructor(public navCtrl: NavController, private auth: AuthProvider, private general: GeneralProvider, private renderer: Renderer2) {
-    this.getAssignments();  
+  }
+
+  ionViewDidEnter(){
+    this.getAssignments();
   }
 
   ngAfterViewInit() {

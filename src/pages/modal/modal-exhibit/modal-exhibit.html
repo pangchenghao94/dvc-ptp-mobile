@@ -56,7 +56,6 @@
   </form>
 
   <form [formGroup]="exhibitForm" novalidate>
-  
     <ion-item-divider color="light" text-center text-uppercase margin-top>
       <strong>Exhibit Details</strong>
     </ion-item-divider>
@@ -93,45 +92,41 @@
     <ion-icon name="cloud-upload"></ion-icon> Upload
   </button> -->
 
-  <ion-item-divider color="light" text-center text-uppercase>
-    <strong>Added Exhibit Items</strong>
-  </ion-item-divider>
+  <ion-row padding-left padding-right>
+    <ion-label class="alert alert-info" *ngIf="exhibitItems.length <= 0"><strong>NOTE</strong>   Please add exhibit items.</ion-label>
+  </ion-row>
 
-  <ion-card>
-    <ion-row padding>
-      <ion-label class="alert alert-info" *ngIf="exhibitItems.length <= 0"><strong>NOTE</strong>   Please add exhibit items.</ion-label>
-    </ion-row>
+  <div *ngFor="let item of exhibitItems" text-wrap>
+    <ion-card style="position: relative">
+      <ion-fab right top (click)="deleteItem(item.fileName)">
+        <button ion-fab mini class="fab-adv" color="light"> 
+          <ion-icon name='close'></ion-icon>
+        </button>
+      </ion-fab>
 
-    <div *ngFor="let item of exhibitItems" text-wrap>
-      <ion-card style="position: relative">
-        <ion-fab right top (click)="deleteItem(item.fileName)">
-          <button ion-fab mini class="fab-adv" color="light"> 
-            <ion-icon name='close'></ion-icon>
-          </button>
-        </ion-fab>
-
-        <ion-row>
-          <ion-item no-lines col-7> 
-            <h2>
-              <strong>{{item.type}}</strong>
-            </h2>
-            <p> {{item.code}}</p>
-          </ion-item>
-          <ion-item col-5> 
-            <div class="imgContainer">
-              <img src="{{pathForImage(item.fileName)}}" onerror="this.onerror=null;this.src='assets/imgs/camera.jpg';"
-                width="80" height="80" class="exhibitCard">
-            </div>
-          </ion-item>
-        </ion-row>
-      </ion-card>
-    </div>
-  </ion-card>
+      <ion-row>
+        <ion-item no-lines col-7> 
+          <h2>
+            <strong>{{item.type}}</strong>
+          </h2>
+          <p> {{item.code}}</p>
+        </ion-item>
+        <ion-item col-5> 
+          <div class="imgContainer">
+            <img src="{{pathForImage(item.fileName)}}" onerror="this.onerror=null;this.src='assets/imgs/camera.jpg';"
+              width="80" height="80" class="exhibitCard">
+          </div>
+        </ion-item>
+      </ion-row>
+    </ion-card>
+  </div>
   <!-- <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
   <h3 [hidden]="lastImage !== null">Please Select Image!</h3> -->
 
+  <hr>
+
   <ion-row padding>
-    <button ion-button block large
+    <button ion-button block
       (click)="saveExhibit()" [disabled]="exhibitItems.length <= 0">
       <ion-icon ios="ios-cloud-upload" class="padding-right-10"></ion-icon>
       Save Exhibit

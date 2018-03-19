@@ -131,16 +131,18 @@ export class ModalExhibitPage {
   }
 
   public saveExhibit() {
-    this.general.getAuthObject().then((val)=>{
+    let loading = this.general.displayLoading('Uploading...'); 
 
+    this.general.getAuthObject().then((val)=>{
       let exhibit = new Exhibit;
       exhibit.po_full_name  = this.poDetailsForm.get('po_full_name').value;
       exhibit.po_ic_no      = this.poDetailsForm.get('po_ic_no').value;
       exhibit.acceptance    = this.poDetailsForm.get('acceptance').value == "true" ? "1" : "0" ;
       
-      val.data = exhibit;
-      console.log(val);
-      this.auth.postData(val, "api/exhibit/add").then((result) => {
+      let postData = val;
+      postData.data = exhibit;
+
+      this.auth.postData(postData, "api/exhibit/add").then((result) => {
         let responseData: any = result;
                     
         if(responseData.status == "0"){
@@ -152,41 +154,40 @@ export class ModalExhibitPage {
           }
 
           else{
-            // Destination URL
-            var url = this.auth.getApiURL() + "api/upload";
+            //Destination URL
+            let url = this.auth.getApiURL() + "api/upload";
 
-            this.exhibitItems.forEach(element => {
+            this.exhibitItems.forEach(item => {
               // File for Upload
-              var targetPath = this.pathForImage(this.exhibitForm.get('img').value);
+              let targetPath = this.pathForImage(item.fileName);
               // File name only
-              var filename = this.exhibitForm.get('img').value;
+              let filename = item.fileName;
+
+              let uploadParam = val;
+              uploadParam.exhibit_id = responseData.data.id;
+              console.log(JSON.stringify(uploadParam));
+              // var options : FileUploadOptions = {
+              //   fileKey: "file",
+              //   fileName: filename,
+              //   chunkedMode: false,
+              //   mimeType: "multipart/form-data",
+              //   params : uploadParam
+              // };
             
-              var options : FileUploadOptions = {
-                fileKey: "file",
-                fileName: filename,
-                chunkedMode: false,
-                mimeType: "multipart/form-data",
-                params : {'fileName': filename }
-              };
-            
-              const fileTransfer: FileTransferObject = this.transfer.create();
-            
-              let loading = this.general.displayLoading('Uploading...'); 
-            
-              // Use the FileTransfer to upload the image
-              fileTransfer.upload(targetPath, url, options).then(data => {
-                console.log(data);
-                loading.dismissAll();
-                this.general.displayToast('Image successful uploaded.');
-              }, 
-              err => {
-                debugger;
-                console.log(err);
-                loading.dismissAll();
-                this.general.displayToast('Error while uploading file.');
-                this.general.displayAlert("sdf", JSON.stringify(err));
-              });
+              // const fileTransfer: FileTransferObject = this.transfer.create();
+              // // Use the FileTransfer to upload the image
+              // fileTransfer.upload(targetPath, url, options).then(data => {
+              //   console.log(data);
+              //   this.general.displayToast('Image successful uploaded.');
+              // }, 
+              // err => {
+              //   debugger;
+              //   console.log(err);
+              //   this.general.displayToast('Error while uploading file.');
+              //   this.general.displayAlert("sdf", JSON.stringify(err));
+              // });
             });
+            loading.dismiss();
           }
         }
       }, 
