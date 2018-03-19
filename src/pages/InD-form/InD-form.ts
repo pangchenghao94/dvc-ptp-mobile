@@ -26,11 +26,11 @@ export class InDFormPage {
 
     this.InDForm = this.fb.group({ 
       assignment_id: '',
-      premise_close: 'false',
-      premise_empty: 'false',
-      poName: ['', Validators.required],
-      poID: '',
-      pShortAddr: '',
+      p_close: 'false',
+      p_empty: 'false',
+      p_shortAddr: '',      
+      po_name: ['', Validators.required],
+      po_id: '',
       no_familyMember: '',
       no_fever: '',
       no_out_breeding: '',

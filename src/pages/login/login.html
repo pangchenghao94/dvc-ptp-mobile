@@ -5,26 +5,34 @@
   Ionic pages and navigation.
 -->
 
-<ion-content padding text-center>
-  <ion-img margin-top margin-bottom [style.padding-top]="'30px'"
-    width="150" height="150" src="../../assets/imgs/ptp_logo.png"></ion-img>
-  
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <ion-item>
-      <ion-label stacked>Username</ion-label>
-      <ion-input type="text" formControlName="username"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>password</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
+<ion-content padding>
+  <div class="centered">
+    <div [style.margin]="'0'" text-center>
+      <ion-img width="150" height="150" src="assets/imgs/ptp_logo.png"></ion-img>
+      
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <ion-item>
+          <ion-label stacked>Username</ion-label>
+          <ion-input type="text" formControlName="username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>password</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
 
-    <ion-label *ngIf="showWrongPassword" class="txt-error">
-      Username or password is incorrect.
-    </ion-label>
+        <!-- <ion-item>
+          <ion-label stacked>API URL</ion-label>
+          <ion-input type="text" formControlName="apiURL"></ion-input>
+        </ion-item> -->
 
-    <button ion-button round outline margin-top type="submit" [disabled]="!loginForm.valid">
-      Login
-    </button>
-  </form>
+        <ion-label *ngIf="showWrongPassword" class="txt-error">
+          Username or password is incorrect.
+        </ion-label>
+
+        <button ion-button round outline margin-top type="submit" [disabled]="!loginForm.valid">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
 </ion-content>

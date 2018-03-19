@@ -11,7 +11,14 @@ export class AuthProvider {
   //apiURL : string = 'http://slimapp/';
   
   constructor(private http: HttpClient, private storage: Storage) { }
+  setApiURL(apiURL: string){
+    this.apiURL = apiURL;
+  }
 
+  getApiURL(){
+    return this.apiURL;
+  }
+  
   postData(credentials, type){
 
     return new Promise((resolve, reject) =>{

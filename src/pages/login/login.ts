@@ -19,12 +19,14 @@ export class LoginPage {
 
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      // apiURL: 'http://192.168.43.169/'
     });
 
   }
 
   login(){
+    // this.auth.setApiURL(this.loginForm.get('apiURL').value);
     let loading = this.general.displayLoading("Please wait...");
   
     loading.present();
@@ -57,7 +59,7 @@ export class LoginPage {
     (err) =>{
       loading.dismiss();
       this.general.displayAlert("Server Error", "Please contact administration");
-      console.log("API error: " + err);
+      console.log("API error: " + JSON.stringify(err));
     });
   }
 

@@ -37,27 +37,27 @@
       <ion-row>
         <ion-item no-lines col-6>
           <ion-label>Empty</ion-label>
-          <ion-checkbox formControlName="premise_empty"></ion-checkbox>
+          <ion-checkbox formControlName="p_empty"></ion-checkbox>
         </ion-item>
         <ion-item no-lines col-6>
           <ion-label>Closed</ion-label>
-          <ion-checkbox formControlName="premise_close"></ion-checkbox>
+          <ion-checkbox formControlName="p_close"></ion-checkbox>
         </ion-item>
       </ion-row>
 
       <ion-item>
         <ion-label floating>Full Name</ion-label>
-        <ion-input type="text" formControlName="poName"></ion-input>
+        <ion-input type="text" formControlName="po_name"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>IC. No</ion-label>
-        <ion-input type="text" formControlName="poID"></ion-input>
+        <ion-input type="text" formControlName="po_id"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Address</ion-label>
-        <ion-input type="text" formControlName="pShortAddr"></ion-input>
+        <ion-input type="text" formControlName="p_shortAddr"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -138,21 +138,32 @@
   
   </form>
 
-    <ion-row>
-      <button ion-button block col-4 outline (click)="openExhibitModal()">Exhibit</button>
-      <button ion-button block col-4 outline>Sek. 8</button>
-      <button ion-button block col-4 outline>Sek. 5</button>
-    </ion-row>
-    
-    <ion-row margin-top>
-      <button ion-button block col-6>
-        <ion-icon ios="ios-add-circle" md="md-add-circle" class="padding-right-10"></ion-icon>
-         Add Assignment
-      </button>      
-      <button ion-button block col-6 color="danger">
-        <ion-icon ios="ios-trash" md="md-trash" class="padding-right-10"></ion-icon>
-         Cancel
-      </button>
-    </ion-row>
+  <ion-row>
+    <ion-col col>
+      <button ion-button block outline (click)="openExhibitModal()">Exhibit</button>
+    </ion-col>
+    <ion-col col>
+      <button ion-button block outline>Sek. 8</button>
+    </ion-col>
+    <ion-col col>
+      <button ion-button block outline>Sek. 5</button>
+    </ion-col>
+  </ion-row>
 
+  <hr>
+
+  <ion-row>
+    <ion-col col-6>
+      <button ion-button block>
+        <ion-icon ios="ios-add-circle" md="md-add-circle" class="padding-right-10"></ion-icon>
+        Add Assignment
+      </button>
+    </ion-col>
+    <ion-col col-6>
+      <button ion-button block color="danger">
+        <ion-icon ios="ios-trash" md="md-trash" class="padding-right-10"></ion-icon>
+        Cancel
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-content>

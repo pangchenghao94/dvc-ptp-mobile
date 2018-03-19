@@ -42,9 +42,7 @@ export class ProfilePage {
       (err) =>{
         this.general.displayAPIErrorAlert();
       });
-
     })
-
     .catch((err) => {
         this.general.displayUnexpectedError(err);
       }

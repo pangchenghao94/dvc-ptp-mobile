@@ -22,37 +22,120 @@
 </ion-header>
 
 
-<ion-content *ngIf="exhibitForm">
+<ion-content>
   
-  <form [formGroup]="exhibitForm" novalidate>
-    
-    <ion-item>
-      <ion-label floating>Type of Exhibit</ion-label>
-      <ion-input type="text" formControlName="type"></ion-input>
+  <form [formGroup]="poDetailsForm" novalidate>
+
+    <ion-item-divider color="light" text-center text-uppercase>
+      <strong>Premise Owner Details</strong>
+    </ion-item-divider>
+
+    <ion-item no-lines>
+      <ion-label>Premise Owner Cooperation</ion-label>
+      <ion-checkbox formControlName="acceptance"></ion-checkbox>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Exhibit code</ion-label>
-      <ion-input type="text" formControlName="code"></ion-input>
+      <ion-label floating>Full Name</ion-label>
+      <ion-input type="text" formControlName="po_full_name"></ion-input>
     </ion-item>
+    
+    <ion-item>
+      <ion-label floating>IC Number</ion-label>
+      <ion-input type="text" formControlName="po_ic_no"></ion-input>
+    </ion-item>
+
+    <div class="help-block" *ngIf="(poDetailsForm.get('po_ic_no').touched || poDetailsForm.get('po_ic_no').dirty) && poDetailsForm.get('po_ic_no').errors">
+      <div padding-left padding-right1>
+        <ion-label text-wrap *ngIf="poDetailsForm.get('po_ic_no').errors.pattern" class="alert alert-danger error-txt-padding">
+          * The password must have at least 8 characters with minimum one letter and one number.
+        </ion-label>
+      </div>
+    </div>
 
   </form>
 
-  <button ion-button block>
-    <ion-icon ios="ios-add-circle" md="md-add-circle" class="padding-right-10"></ion-icon>
-    Add Assignment
-  </button>
+  <form [formGroup]="exhibitForm" novalidate>
+  
+    <ion-item-divider color="light" text-center text-uppercase margin-top>
+      <strong>Exhibit Details</strong>
+    </ion-item-divider>
+    <ion-row>
+      <ion-col col-8>
+        <ion-item>
+          <ion-label floating>Type of Exhibit</ion-label>
+          <ion-input type="text" formControlName="type"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label floating>Exhibit code</ion-label>
+          <ion-input type="text" formControlName="code"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-4>
+        <div class="imgContainer">
+          <img src="{{pathForImage(exhibitForm.get('img').value)}}" onerror="this.onerror=null;this.src='assets/imgs/camera.jpg';" (click)="openCamera()"
+            width="100" height="100" class="exhibitCard">
+        </div>
+      </ion-col>
+    </ion-row>
 
-  <button ion-button block color="light" (click)="openCamera()">
-    <ion-icon ios="ios-camera" md="md-camera" class="padding-right-10"></ion-icon>
-    Take Pictures
-  </button>
+    <ion-row padding>
+      <button ion-button block 
+        (click)="addExhibitItem()" [disabled]="!exhibitForm.valid">
+        <ion-icon ios="ios-add-circle" md="md-add-circle" class="padding-right-10"></ion-icon>
+        Add Exhibit Item
+      </button>
+    </ion-row>
 
-  <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
+  </form>
+  <!-- <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
     <ion-icon name="cloud-upload"></ion-icon> Upload
-  </button>
+  </button> -->
 
-  <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
-  <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
+  <ion-item-divider color="light" text-center text-uppercase>
+    <strong>Added Exhibit Items</strong>
+  </ion-item-divider>
+
+  <ion-card>
+    <ion-row padding>
+      <ion-label class="alert alert-info" *ngIf="exhibitItems.length <= 0"><strong>NOTE</strong>   Please add exhibit items.</ion-label>
+    </ion-row>
+
+    <div *ngFor="let item of exhibitItems" text-wrap>
+      <ion-card style="position: relative">
+        <ion-fab right top (click)="deleteItem(item.fileName)">
+          <button ion-fab mini class="fab-adv" color="light"> 
+            <ion-icon name='close'></ion-icon>
+          </button>
+        </ion-fab>
+
+        <ion-row>
+          <ion-item no-lines col-7> 
+            <h2>
+              <strong>{{item.type}}</strong>
+            </h2>
+            <p> {{item.code}}</p>
+          </ion-item>
+          <ion-item col-5> 
+            <div class="imgContainer">
+              <img src="{{pathForImage(item.fileName)}}" onerror="this.onerror=null;this.src='assets/imgs/camera.jpg';"
+                width="80" height="80" class="exhibitCard">
+            </div>
+          </ion-item>
+        </ion-row>
+      </ion-card>
+    </div>
+  </ion-card>
+  <!-- <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
+  <h3 [hidden]="lastImage !== null">Please Select Image!</h3> -->
+
+  <ion-row padding>
+    <button ion-button block large
+      (click)="saveExhibit()" [disabled]="exhibitItems.length <= 0">
+      <ion-icon ios="ios-cloud-upload" class="padding-right-10"></ion-icon>
+      Save Exhibit
+    </button>
+  </ion-row>
 
 </ion-content>

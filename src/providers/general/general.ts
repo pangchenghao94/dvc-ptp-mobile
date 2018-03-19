@@ -118,4 +118,22 @@ export class GeneralProvider {
     });
     toast.present();
   }
+
+  displayConfirm(title: string, message: string, confirmHandler) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      message: message,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Yes',
+          handler: confirmHandler
+        }
+      ]
+    });
+    alert.present();
+  }
 }

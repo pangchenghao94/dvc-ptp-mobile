@@ -11,12 +11,14 @@ import { GeneralProvider } from '../../providers/general/general';
 
 export class HomePage {
   @ViewChild('content') content: ElementRef;
+  assignments: any;
+  emptyAssignment: boolean = false;
 
   constructor(public navCtrl: NavController, private auth: AuthProvider, private general: GeneralProvider, private renderer: Renderer2) {
+    this.getAssignments();  
   }
 
   ngAfterViewInit() {
-    this.getAssignments();
   }
 
   ionViewCanEnter(){
@@ -24,10 +26,6 @@ export class HomePage {
   }
 
   doRefresh(refresher) {
-    while (this.content.nativeElement.hasChildNodes()) {
-      this.content.nativeElement.removeChild(this.content.nativeElement.lastChild);
-    }
-
     this.getAssignments()
     .then(
       (result)=>{refresher.complete();},
@@ -54,9 +52,16 @@ export class HomePage {
         }
         
         else{
-          if(this.generateAssignmentList(responseData.data)){
-            return true;
+          this.assignments = responseData.data;
+          if(Object.keys(this.assignments).length > 0){
+            this.emptyAssignment = false;
           }
+          else{
+            this.emptyAssignment = true;
+          }
+          // if(this.generateAssignmentList(responseData.data)){
+          //   return true;
+          // }
         }
       }, 
       (err) =>{
@@ -68,77 +73,73 @@ export class HomePage {
     });
   }
 
-  testing(){
-    alert('success');
-  }
+  // generateAssignmentList(assignments: any){
+  //   if(assignments.length <= 0){
+  //     const element = this.renderer.createElement('ion-label');
+  //     const txt = this.renderer.createText('  You do not have assignment today.');
 
-  generateAssignmentList(assignments: any){
-    if(assignments.length <= 0){
-      const element = this.renderer.createElement('ion-label');
-      const txt = this.renderer.createText('  You do not have assignment today.');
+  //     const element2 = this.renderer.createElement('strong');
+  //     const txt2 = this.renderer.createText('NOTE');
 
-      const element2 = this.renderer.createElement('strong');
-      const txt2 = this.renderer.createText('NOTE');
+  //     this.renderer.addClass(element, 'padding-10');    
+  //     this.renderer.addClass(element, 'alert');
+  //     this.renderer.addClass(element, 'alert-info');
 
-      this.renderer.addClass(element, 'padding-10');    
-      this.renderer.addClass(element, 'alert');
-      this.renderer.addClass(element, 'alert-info');
-
-      this.renderer.appendChild(element2, txt2);            
-      this.renderer.appendChild(element, element2);      
-      this.renderer.appendChild(element, txt);
-      this.renderer.appendChild(this.content.nativeElement, element);
-    }
-    else{
-      assignments.forEach(assignment => {
-        let element = this.renderer.createElement('div');
+  //     this.renderer.appendChild(element2, txt2);            
+  //     this.renderer.appendChild(element, element2);      
+  //     this.renderer.appendChild(element, txt);
+  //     this.renderer.appendChild(this.content.nativeElement, element);
+  //   }
+  //   else{
+  //     assignments.forEach(assignment => {
+  //       let element = this.renderer.createElement('div');
         
-        this.renderer.listen(element, 'click', (evt)=>{
-          this.assignmentClick(assignment.assignment_id);
-        });
+  //       this.renderer.listen(element, 'click', (evt)=>{
+  //         this.assignmentClick(assignment.assignment_id);
+  //       });
         
-        var team = assignment.team;
-        var postcode = assignment.postcode;
-        var address = assignment.address;
-        var createdBy = assignment.full_name;
+  //       var team = assignment.team;
+  //       var postcode = assignment.postcode;
+  //       var address = assignment.address;
+  //       var createdBy = assignment.full_name;
   
-        let template = `<ion-card class="card card-md">
-                    <ion-card-content class="card-content card-content-md">
-                      <ion-grid class="grid">
-                        <ion-row class="row">
-                          <ion-col class="col">
-                            <strong>Team</strong>
-                          </ion-col>
-                          <ion-col class="col" col-8>${team}</ion-col>          
-                        </ion-row>
-                        <ion-row class="row">
-                          <ion-col class="col">
-                            <strong>Postcode</strong>
-                          </ion-col>
-                          <ion-col class="col" col-8>${postcode}</ion-col>          
-                        </ion-row>
-                        <ion-row class="row">
-                          <ion-col class="col">
-                            <strong>Address</strong>
-                          </ion-col>
-                          <ion-col class="col" col-8>${address}</ion-col>          
-                        </ion-row>
-                        <ion-row class="row">
-                          <ion-col class="col">
-                            <strong>Created by</strong>
-                          </ion-col>
-                          <ion-col class="col" col-8>${createdBy}</ion-col>          
-                        </ion-row>
-                      </ion-grid>  
-                    </ion-card-content>
-                  </ion-card>`;
+  //       let template = `<ion-card class="card card-md">
+  //                   <ion-card-content class="card-content card-content-md">
+  //                     <ion-grid class="grid">
+  //                       <ion-row class="row">
+  //                         <ion-col class="col">
+  //                           <strong>Team</strong>
+  //                         </ion-col>
+  //                         <ion-col class="col" col-8>${team}</ion-col>          
+  //                       </ion-row>
+  //                       <ion-row class="row">
+  //                         <ion-col class="col">
+  //                           <strong>Postcode</strong>
+  //                         </ion-col>
+  //                         <ion-col class="col" col-8>${postcode}</ion-col>          
+  //                       </ion-row>
+  //                       <ion-row class="row">
+  //                         <ion-col class="col">
+  //                           <strong>Address</strong>
+  //                         </ion-col>
+  //                         <ion-col class="col" col-8>${address}</ion-col>          
+  //                       </ion-row>
+  //                       <ion-row class="row">
+  //                         <ion-col class="col">
+  //                           <strong>Created by</strong>
+  //                         </ion-col>
+  //                         <ion-col class="col" col-8>${createdBy}</ion-col>          
+  //                       </ion-row>
+  //                     </ion-grid>  
+  //                   </ion-card-content>
+  //                 </ion-card>`;
   
-        element.insertAdjacentHTML('afterbegin', template);
-        this.renderer.appendChild(this.content.nativeElement, element);
-      });
-    }
-    return true;
-  }
+  //       element.insertAdjacentHTML('afterbegin', template);
+  //       this.renderer.appendChild(this.content.nativeElement, element);
+  //     });
+  //   }
+  //   return true;
+  // }
 
   assignmentClick(id: any){
     this.navCtrl.push("InDFormPage", {"id" : id, "mode": 0});
