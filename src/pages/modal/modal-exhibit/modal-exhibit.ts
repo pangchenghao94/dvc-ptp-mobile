@@ -148,10 +148,12 @@ export class ModalExhibitPage {
                     
         if(responseData.status == "0"){
           this.general.displayUnauthorizedAccessAlert(responseData.message);
+          loading.dismiss();
         }
         else{
           if(responseData.error) {
             this.general.displayUnexpectedError(responseData.error.text);
+            loading.dismiss();
           }
 
           else{
@@ -164,12 +166,6 @@ export class ModalExhibitPage {
               let targetPath = this.pathForImage(item.fileName);
               // File name only
               let filename = item.fileName;
-
-              // let temp_exhibit_item         = new ExhibitItem();
-              // temp_exhibit_item.fileName    = filename;
-              // temp_exhibit_item.exhibit_id  = responseData.data.id;
-              // temp_exhibit_item.code        = item.code;
-              // temp_exhibit_item.type        = item.type;
 
               let uploadParam = JSON.parse(JSON.stringify(val));
               uploadParam.fileName = filename;
@@ -188,16 +184,15 @@ export class ModalExhibitPage {
               const fileTransfer: FileTransferObject = this.transfer.create();
               // Use the FileTransfer to upload the image
               fileTransfer.upload(targetPath, url, options).then(data => {
-                console.log(data);
                 counter++;
-                console.log(counter);
-                if(counter == this.exhibitItems.length){
-                  this.general.displayToast('Image successful uploaded.');            
+                if(counter == this.exhibitItems.length - 1){
+                  this.general.displayToast('Exhibit have been saved successfully');            
                   loading.dismiss();
                 }
               }, 
               err => {
-                this.general.displayToast('Error while uploading file.');
+                this.general.displayUnexpectedError(JSON.stringify(err));
+                loading.dismiss();
               });
             });
           }
@@ -205,11 +200,13 @@ export class ModalExhibitPage {
       }, 
       (err) =>{
         this.general.displayAPIErrorAlert();
+        loading.dismiss();
       });
 
     })
     .catch((err) => {
-        this.general.displayUnexpectedError(err);
+        this.general.displayUnexpectedError(JSON.stringify(err));
+        loading.dismiss();
       }
     );
   }
