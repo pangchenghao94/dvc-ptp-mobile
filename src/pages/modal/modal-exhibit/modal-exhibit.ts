@@ -8,6 +8,7 @@ import { File } from '@ionic-native/file';
 import { GeneralProvider } from '../../../providers/general/general';
 import { AuthProvider } from '../../../providers/auth/auth';
 import { Exhibit } from '../../../models/exhibit';
+import { ExhibitItem } from '../../../models/exhibit_item';
 
 /**
  * Generated class for the ModalExhibitPage page.
@@ -139,7 +140,7 @@ export class ModalExhibitPage {
       exhibit.po_ic_no      = this.poDetailsForm.get('po_ic_no').value;
       exhibit.acceptance    = this.poDetailsForm.get('acceptance').value == "true" ? "1" : "0" ;
       
-      let postData = val;
+      let postData = JSON.parse(JSON.stringify(val));
       postData.data = exhibit;
 
       this.auth.postData(postData, "api/exhibit/add").then((result) => {
@@ -157,37 +158,48 @@ export class ModalExhibitPage {
             //Destination URL
             let url = this.auth.getApiURL() + "api/upload";
 
+            let counter = 1;
             this.exhibitItems.forEach(item => {
               // File for Upload
               let targetPath = this.pathForImage(item.fileName);
               // File name only
               let filename = item.fileName;
 
-              let uploadParam = val;
+              // let temp_exhibit_item         = new ExhibitItem();
+              // temp_exhibit_item.fileName    = filename;
+              // temp_exhibit_item.exhibit_id  = responseData.data.id;
+              // temp_exhibit_item.code        = item.code;
+              // temp_exhibit_item.type        = item.type;
+
+              let uploadParam = JSON.parse(JSON.stringify(val));
+              uploadParam.fileName = filename;
               uploadParam.exhibit_id = responseData.data.id;
-              console.log(JSON.stringify(uploadParam));
-              // var options : FileUploadOptions = {
-              //   fileKey: "file",
-              //   fileName: filename,
-              //   chunkedMode: false,
-              //   mimeType: "multipart/form-data",
-              //   params : uploadParam
-              // };
+              uploadParam.code = item.code;
+              uploadParam.type = item.type;
+
+              var options : FileUploadOptions = {
+                fileKey: "file",
+                fileName: filename,
+                chunkedMode: false,
+                mimeType: "multipart/form-data",
+                params : uploadParam
+              };
             
-              // const fileTransfer: FileTransferObject = this.transfer.create();
-              // // Use the FileTransfer to upload the image
-              // fileTransfer.upload(targetPath, url, options).then(data => {
-              //   console.log(data);
-              //   this.general.displayToast('Image successful uploaded.');
-              // }, 
-              // err => {
-              //   debugger;
-              //   console.log(err);
-              //   this.general.displayToast('Error while uploading file.');
-              //   this.general.displayAlert("sdf", JSON.stringify(err));
-              // });
+              const fileTransfer: FileTransferObject = this.transfer.create();
+              // Use the FileTransfer to upload the image
+              fileTransfer.upload(targetPath, url, options).then(data => {
+                console.log(data);
+                counter++;
+                console.log(counter);
+                if(counter == this.exhibitItems.length){
+                  this.general.displayToast('Image successful uploaded.');            
+                  loading.dismiss();
+                }
+              }, 
+              err => {
+                this.general.displayToast('Error while uploading file.');
+              });
             });
-            loading.dismiss();
           }
         }
       }, 
