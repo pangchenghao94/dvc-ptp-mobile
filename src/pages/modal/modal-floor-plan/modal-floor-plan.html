@@ -2,8 +2,7 @@
 
   <ion-navbar>
     <ion-title>
-      <ion-icon ios="ios-pin" md="md-pin" class="padding-right-10"></ion-icon>
-      Current Location
+      Draw Floor Plan
     </ion-title>
 
     <ion-buttons end>
@@ -16,16 +15,16 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-grid #mapCanvas id="mapCanvas"></ion-grid>
+<ion-content>
+  <drawing-canvas ion-fixed [style.margin-top]="'2px'">
+    
+  </drawing-canvas>
 </ion-content>
 
 <ion-footer no-border>
   <ion-row>
     <ion-col>
-      <button ion-button block (click)="closeModal()"> Confirm Location</button>
+      <button ion-button block color="primary" (click)="saveDrawing()"> Save Drawing</button>  
     </ion-col>
   </ion-row>
 </ion-footer>
-    
-    

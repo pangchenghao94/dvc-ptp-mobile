@@ -2,5 +2,12 @@ page-InD-form {
     // .list-md .item-input:last-child{
     //     border-bottom: unset;
     // }
-    
+    .help-block{
+        padding-left: 16px;
+        padding-right: 16px;
+
+        ion-label{
+            margin-right: 0;
+        }
+    }
 }

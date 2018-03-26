@@ -23,7 +23,7 @@
 
 
 <ion-content>
-  
+
   <form [formGroup]="poDetailsForm" novalidate>
 
     <ion-item-divider color="light" text-center text-uppercase>
@@ -55,8 +55,27 @@
 
   </form>
 
+  <ion-item-divider color="light" text-center text-uppercase margin-top>
+    <strong>Breeding Floor Plan</strong>
+  </ion-item-divider>
+
+  <ion-row>
+    <ion-col col-6>
+      <button ion-button block [outline]="floorPlanURI == null ? true : false" (click)="openDrawFloorPlanModal()">
+        <ion-icon ios="ios-brush" md="md-brush" class="padding-right-10"></ion-icon>
+        Floor Plan
+      </button>
+    </ion-col>
+    <ion-col col-6>
+      <button ion-button block color="secondary" [outline]="premiseLocationURI == null ? true : false" (click)="openPremiseLocationModal()">
+        <ion-icon ios="ios-brush" md="md-brush" class="padding-right-10"></ion-icon>
+        Premise Location
+      </button>
+    </ion-col>
+  </ion-row>
+
   <form [formGroup]="exhibitForm" novalidate>
-    <ion-item-divider color="light" text-center text-uppercase margin-top>
+    <ion-item-divider color="light" text-center text-uppercase>
       <strong>Exhibit Details</strong>
     </ion-item-divider>
     <ion-row>
@@ -80,7 +99,7 @@
     </ion-row>
 
     <ion-row padding>
-      <button ion-button block 
+      <button ion-button block outline
         (click)="addExhibitItem()" [disabled]="!exhibitForm.valid">
         <ion-icon ios="ios-add-circle" md="md-add-circle" class="padding-right-10"></ion-icon>
         Add Exhibit Item
@@ -97,7 +116,7 @@
   </ion-row>
 
   <div *ngFor="let item of exhibitItems" text-wrap>
-    <ion-card style="position: relative">
+    <ion-card style="position: relative" no-shadow>
       <ion-fab right top (click)="deleteItem(item.fileName)">
         <button ion-fab mini class="fab-adv" color="light"> 
           <ion-icon name='close'></ion-icon>
@@ -125,12 +144,13 @@
 
   <hr>
 
-  <ion-row padding>
-    <button ion-button block
-      (click)="saveExhibit()" [disabled]="exhibitItems.length <= 0">
-      <ion-icon ios="ios-cloud-upload" class="padding-right-10"></ion-icon>
-      Save Exhibit
-    </button>
+  <ion-row>
+    <ion-col>
+      <button ion-button block
+      (click)="saveExhibit()" [disabled]="exhibitItems.length <= 0 || premiseLocationURI == null || floorPlanURI == null">
+        Save Exhibit
+      </button>
+    </ion-col>
   </ion-row>
 
 </ion-content>

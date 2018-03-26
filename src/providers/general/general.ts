@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { AlertController, LoadingController, ToastController } from 'ionic-angular';
+import { AlertController, LoadingController, ToastController, Loading } from 'ionic-angular';
+import { File } from '@ionic-native/file';
 
 @Injectable()
 export class GeneralProvider {
 
-  constructor(public http: HttpClient, private storage: Storage, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+  constructor(public http: HttpClient, private storage: Storage, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private toastCtrl: ToastController, private file: File) {
   }
 
   // generateJSONObj(key, value){
@@ -62,6 +63,14 @@ export class GeneralProvider {
                           "user_id"   : val.user_id};
       return data;
     });
+  }
+
+  getPathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      return this.file.dataDirectory + img;
+    }
   }
 
   displayAlert(title:string, message: string){
@@ -135,5 +144,38 @@ export class GeneralProvider {
       ]
     });
     alert.present();
+  }
+
+  convertToDateOnly(date: Date): Date{
+    date.setHours(0, -date.getTimezoneOffset(), 0, 0); 
+    // temp_date.setDate(temp_date.getDate() + 1);
+    return date;
+  }
+
+  convertToDate(date: string, time: string): Date{
+    let temp_date = date.split("-");
+    let temp_time = time.split(":");
+
+    return new Date(parseInt(temp_date[0]), parseInt(temp_date[1]), parseInt(temp_date[2]), 
+                    parseInt(temp_time[0]), parseInt(temp_time[1]));
+  }
+
+  convertToSqlDatetimeStr(dt){
+    var tzoffset = dt.getTimezoneOffset() * 60000; //offset in milliseconds
+    var localISOTime = (new Date(dt - tzoffset));
+
+    return localISOTime.toISOString().slice(0, 19).replace('T', ' ');
+  }
+
+  convertBoolToInt(arr: any){
+    for (var key in arr){
+      if (arr.hasOwnProperty(key)) {
+        if (arr[key] === true)
+          arr[key] = "1";
+        if (arr[key] === false)
+          arr[key] = "0";
+      }
+    }
+    return arr;
   }
 }

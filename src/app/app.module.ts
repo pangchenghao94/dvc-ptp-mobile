@@ -14,6 +14,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { File } from '@ionic-native/file';
     FileTransfer,
     FilePath,
     File,
+    NativeGeocoder,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     GeneralProvider

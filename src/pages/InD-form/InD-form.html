@@ -34,14 +34,19 @@
         <strong>Premise Details</strong>
       </ion-item-divider>
 
+      <ion-item no-lines>
+        <ion-label>Premise Owner Cooperation</ion-label>
+        <ion-checkbox formControlName="p_cooperation"></ion-checkbox>
+      </ion-item>
+
       <ion-row>
         <ion-item no-lines col-6>
           <ion-label>Empty</ion-label>
-          <ion-checkbox formControlName="p_empty"></ion-checkbox>
+          <ion-checkbox id="p_empty" formControlName="p_empty" (ionChange)="toggleEmptyToClose($event)"></ion-checkbox>
         </ion-item>
         <ion-item no-lines col-6>
           <ion-label>Closed</ion-label>
-          <ion-checkbox formControlName="p_close"></ion-checkbox>
+          <ion-checkbox id="p_empty" formControlName="p_close" (ionChange)="toggleCloseToEmpty($event)"></ion-checkbox>
         </ion-item>
       </ion-row>
 
@@ -65,24 +70,50 @@
         <ion-input type="number" formControlName="no_familyMember"></ion-input>
       </ion-item>
 
+      <div class="help-block" *ngIf="(InDForm.get('no_familyMember').touched || InDForm.get('no_familyMember').dirty) && (InDForm.get('no_familyMember').errors || InDForm.get('no_familyMember').errors)">
+        <ion-label text-wrap *ngIf="InDForm.get('no_familyMember').errors?.min" class="alert alert-danger error-txt-padding">
+          * The number of family members must bigger than 0.
+        </ion-label>
+      </div>
+
       <ion-item>
         <ion-label floating>No. of Fever Member</ion-label>
         <ion-input type="number" formControlName="no_fever"></ion-input>
       </ion-item>
 
-      <ion-item-divider color="light" text-center text-uppercase margin-top>
+      <div class="help-block" *ngIf="(InDForm.get('no_fever').touched || InDForm.get('no_fever').dirty) && (InDForm.get('no_fever').errors || InDForm.get('no_fever').errors)">
+        <ion-label text-wrap *ngIf="InDForm.get('no_fever').errors?.min" class="alert alert-danger error-txt-padding">
+          * The number of fever member must bigger than 0.
+        </ion-label>
+      </div>
+
+      <ion-item-divider color="light" text-center text-uppercase margin-top text-wrap>
         <strong>Aedes Mosquitoes Larvae Breeding Finding</strong>
       </ion-item-divider>
 
       <ion-row>
-        <ion-item col-6>
-          <ion-label floating>Outside</ion-label>
-          <ion-input type="number" formControlName="no_out_breeding"></ion-input>
-        </ion-item>
-        <ion-item col-6>
-          <ion-label floating>Inside</ion-label>
-          <ion-input type="number" formControlName="no_in_breeding"></ion-input>
-        </ion-item>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Outside</ion-label>
+            <ion-input type="number" formControlName="no_out_breeding"></ion-input>
+          </ion-item>
+          <div class="help-block" *ngIf="(InDForm.get('no_out_breeding').touched || InDForm.get('no_out_breeding').dirty) && (InDForm.get('no_out_breeding').errors || InDForm.get('no_out_breeding').errors)">
+            <ion-label text-wrap *ngIf="InDForm.get('no_out_breeding').errors?.min" class="alert alert-danger error-txt-padding">
+              * The number must bigger than 0.
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Inside</ion-label>
+            <ion-input type="number" formControlName="no_in_breeding"></ion-input>
+          </ion-item>
+          <div class="help-block" *ngIf="(InDForm.get('no_in_breeding').touched || InDForm.get('no_in_breeding').dirty) && (InDForm.get('no_in_breeding').errors || InDForm.get('no_in_breeding').errors)">
+            <ion-label text-wrap *ngIf="InDForm.get('no_in_breeding').errors?.min" class="alert alert-danger error-txt-padding">
+              * The number must bigger than 0.
+            </ion-label>
+          </div>
+        </ion-col>
       </ion-row>
 
       <ion-item>
@@ -95,15 +126,28 @@
       </ion-item-divider>
 
       <ion-row>
-        <ion-item col-6>
-          <ion-label floating>Outside</ion-label>
-          <ion-input type="number" formControlName="no_pot_out_breeding"></ion-input>
-        </ion-item>
-    
-        <ion-item col-6>
-          <ion-label floating>Inside</ion-label>
-          <ion-input type="number" formControlName="no_pot_in_breeding"></ion-input>
-        </ion-item>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Outside</ion-label>
+            <ion-input type="number" formControlName="no_pot_out_breeding"></ion-input>
+          </ion-item>
+          <div class="help-block" *ngIf="(InDForm.get('no_pot_out_breeding').touched || InDForm.get('no_pot_out_breeding').dirty) && (InDForm.get('no_pot_out_breeding').errors || InDForm.get('no_pot_out_breeding').errors)">
+            <ion-label text-wrap *ngIf="InDForm.get('no_pot_out_breeding').errors?.min" class="alert alert-danger error-txt-padding">
+              * The number must bigger than 0.
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item >
+            <ion-label floating>Inside</ion-label>
+            <ion-input type="number" formControlName="no_pot_in_breeding"></ion-input>
+          </ion-item>
+          <div class="help-block" *ngIf="(InDForm.get('no_pot_in_breeding').touched || InDForm.get('no_pot_in_breeding').dirty) && (InDForm.get('no_pot_in_breeding').errors || InDForm.get('no_pot_in_breeding').errors)">
+            <ion-label text-wrap *ngIf="InDForm.get('no_pot_in_breeding').errors?.min" class="alert alert-danger error-txt-padding">
+              * The number must bigger than 0.
+            </ion-label>
+          </div>
+        </ion-col>
       </ion-row>
 
       <ion-item-divider color="light" text-center text-uppercase margin-top text-wrap>
@@ -126,41 +170,33 @@
         <ion-label>Pamphlet</ion-label>
         <ion-checkbox formControlName="act_pamphlet"></ion-checkbox>
       </ion-item>
-      <ion-item no-lines>
-        <ion-label>Notice Sek. 8</ion-label>
-        <ion-checkbox formControlName="act_sek8"></ion-checkbox>
-      </ion-item>
-      <ion-item no-lines>
-        <ion-label>Notice Sek. 5(3)</ion-label>
-        <ion-checkbox formControlName="act_sek5"></ion-checkbox>
-      </ion-item>
-    
-  
   </form>
 
   <ion-row>
     <ion-col col>
-      <button ion-button block outline (click)="openExhibitModal()">Exhibit</button>
+      <button ion-button block [outline]="exhibitData == null ? true : false" (click)="openExhibitModal()">Exhibit</button>
     </ion-col>
     <ion-col col>
-      <button ion-button block outline>Sek. 8</button>
+      <button ion-button block outline [outline]="sek8Data == null ? true : false" (click)="openSek8Modal()">Sek. 8</button>
     </ion-col>
     <ion-col col>
-      <button ion-button block outline>Sek. 5</button>
+      <button ion-button block outline [outline]="sek5Data == null ? true : false" (click)="openSek5Modal()">Sek. 5</button>
     </ion-col>
   </ion-row>
 
   <hr>
 
+  <button (click)="testing()">Testing</button>
+
   <ion-row>
     <ion-col col-6>
-      <button ion-button block>
+      <button ion-button block (click)="saveInD()" [disabled]="!InDForm.valid">
         <ion-icon ios="ios-add-circle" md="md-add-circle" class="padding-right-10"></ion-icon>
-        Add Assignment
+        Save I&D
       </button>
     </ion-col>
     <ion-col col-6>
-      <button ion-button block color="danger">
+      <button ion-button block color="danger" (click)="cancelInd()">
         <ion-icon ios="ios-trash" md="md-trash" class="padding-right-10"></ion-icon>
         Cancel
       </button>

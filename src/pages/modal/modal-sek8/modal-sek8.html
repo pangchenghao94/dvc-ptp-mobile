@@ -1,0 +1,119 @@
+<ion-header>
+
+    <ion-navbar>
+      <ion-title>
+        <ion-icon ios="ios-create" md="md-create" class="padding-right-10"></ion-icon>
+        Seksyen 8
+      </ion-title>
+    
+      <ion-buttons end>
+        <button ion-button icon-only (click)="closeModal()">
+          <ion-icon ios="ios-close" md="md-close" item-end></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  
+  </ion-header>
+  
+
+
+<ion-content padding>
+  <ion-row text-wrap>
+    <ion-label class="alert alert-info">
+      PERINTAH BERKENAAN AKTA PEMUSNAHAN SERANGGA PEMBAWA PENYAKIT 1975 (PINDAAN) 2000
+    </ion-label>
+  </ion-row>
+
+  <form [formGroup]="sek8Form" novalidate>
+    <ion-item padding-top>
+      <ion-label>DATE UNTIL</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="checking_date"
+        [min]="minDate" [max]="maxDate">
+      </ion-datetime>
+    </ion-item>
+  
+    <ion-item text-wrap>
+      <ion-label>Pungut dan buang bekas-bekas yang atau boleh mengandungi air agaar ia tidak akan mengandungi air.</ion-label>
+      <ion-checkbox formControlName="chkbx1"></ion-checkbox>
+    </ion-item>
+  
+    <ion-item text-wrap>
+      <ion-label>Tutup semua bekas simpanan air dengan rapat dan gosok dan bersihkan sebelum mengisi air yang baharu sekurang-kurangnya seminggu sekali.</ion-label>
+      <ion-checkbox formControlName="chkbx2"></ion-checkbox>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-label>Jangan buang dan bersihkan bekas-bekas air yang telah dicampurkan dengan ubat kimia oleh Jabatan Kesihatan.</ion-label>
+      <ion-checkbox formControlName="chkbx3"></ion-checkbox>
+    </ion-item>
+
+    <ion-item text-wrap no-lines>
+      <ion-label>Campurkan satu sudu besar garam ke dalam perangkap-perangkap semut setiap kali airnya diganti.</ion-label>
+      <ion-checkbox formControlName="chkbx4"></ion-checkbox>
+    </ion-item>
+
+    <ion-item text-wrap no-lines style="border-top: 1px solid #dedede">
+      <ion-label>Elakkan air bertakung di lubang pokok, tunggul-tunggul buluh dan pokok-pokok yang boleh mengandungi air seperti pokok pisang,
+          pokok bunga dalam pasu dan lain-lain dengan</ion-label>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-label>memusnahkan dan melupuskan</ion-label>
+      <ion-checkbox formControlName="chkbx5"></ion-checkbox>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-label>menyalur air darinya</ion-label>
+      <ion-checkbox formControlName="chkbx6"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item text-wrap no-lines style="border-bottom: 1px solid #dedede" >
+      <ion-label>mengisikan dengan simen / pasir</ion-label>
+      <ion-checkbox formControlName="chkbx7"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item text-wrap padding-top>
+      <ion-label>Elakkan bahagian-bahagian jentera, besi-besi buruk, pembancuh simen, perkakas jamban, kenderaan rosak dan lain-lain perkakas dari menakung air.</ion-label>
+      <ion-checkbox formControlName="chkbx8"></ion-checkbox>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-label>Bersihkan tepi-tepi kolam dari rumput-rumpai dan pertumbuhan di bawahnya dan tepi-tepinya mestilah sentiasa bersih dari sebarang tumbuh-tumbuhan.</ion-label>
+      <ion-checkbox formControlName="chkbx9"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item text-wrap padding-top>
+      <ion-label>Buang semua tumbuh-tumbuhan dan lain-lain benda yang terapung dari kolam-kolan.</ion-label>
+      <ion-checkbox formControlName="chkbx10"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item text-wrap>
+      <ion-label>Timbus / ratakan lubang-lubang dalam tanah.</ion-label>
+      <ion-checkbox formControlName="chkbx11"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item text-wrap>
+      <ion-label>Membubuh ubat jentik-jentik dalam telaga / kolam / lembah supaya menghalang serangga pembawa penyakit dari membiak.</ion-label>
+      <ion-checkbox formControlName="chkbx12"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item text-wrap>
+      <ion-label>Potong dan buang segala tumbuh-tumbuhan dan pungut dan buang semua sampah-sarapnya supaya premis bersih dan kemas.</ion-label>
+      <ion-checkbox formControlName="chkbx13"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item text-wrap padding-top>
+      <ion-label>Lain-lain</ion-label>
+      <ion-textarea formControlName="remark"></ion-textarea>
+    </ion-item>
+  </form>
+
+</ion-content>
+
+<ion-footer no-border>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="saveSek8()" [disabled]="!sek8Form.valid">Save Seksyen 8</button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
