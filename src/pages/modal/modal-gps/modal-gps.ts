@@ -31,8 +31,8 @@ export class ModalGpsPage {
 
       if(this.navParams.get('positionData') != null){
         let temp_coor: any = this.navParams.get('positionData');
-        this.coordinates.latitude = temp_coor.coordinates.lat;
-        this.coordinates.longitude = temp_coor.coordinates.lng;
+        this.coordinates.latitude = temp_coor.lat;
+        this.coordinates.longitude = temp_coor.lng;
 
         this.loadMap();
       }
@@ -45,7 +45,6 @@ export class ModalGpsPage {
            this.general.displayAlert('Fail to get location', error);
          });
       }
-      
     });
   }
 
@@ -64,7 +63,8 @@ export class ModalGpsPage {
           location += result[0].administrativeArea;
 
         let dismissData: any = {
-          coordinates : this.marker.getPosition(),
+          lat: this.marker.getPosition().lat,
+          lng: this.marker.getPosition().lng,
           location    : location 
         }
 

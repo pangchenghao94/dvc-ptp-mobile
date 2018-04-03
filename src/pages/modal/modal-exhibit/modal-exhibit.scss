@@ -25,4 +25,14 @@ page-modal-exhibit {
         height: 30px;
         line-height: 30px;
     }
+
+    .help-block{
+        ion-label{
+            margin-right: 0;
+        }
+    }
+
+    .item-ios{
+        padding-right: 16px;
+    }
 }

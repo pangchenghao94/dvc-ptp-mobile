@@ -39,7 +39,6 @@ export class HomePage {
     });
 
     setTimeout(() => {
-      console.log('Async operation has ended');
       refresher.complete();
     }, 2000);
   }
@@ -145,6 +144,6 @@ export class HomePage {
   // }
 
   assignmentClick(id: any){
-    this.navCtrl.push("InDFormPage", {"id" : id, "mode": 0});
+    this.navCtrl.push("InDFormPage", {"assignment_id" : id, "mode": 0});
   }  
 }

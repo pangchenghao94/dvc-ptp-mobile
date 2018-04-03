@@ -156,9 +156,16 @@ export class GeneralProvider {
     let temp_date = date.split("-");
     let temp_time = time.split(":");
 
-    return new Date(parseInt(temp_date[0]), parseInt(temp_date[1]), parseInt(temp_date[2]), 
+    return new Date(parseInt(temp_date[0]), parseInt(temp_date[1])-1, parseInt(temp_date[2]), 
                     parseInt(temp_time[0]), parseInt(temp_time[1]));
   }
+
+  // convertToLocalISODT(dt): Date{
+  //   var tzoffset = dt.getTimezoneOffset() * 60000; //offset in milliseconds
+  //   var localISOTime = (new Date(dt - tzoffset));
+
+  //   return localISOTime;
+  // }
 
   convertToSqlDatetimeStr(dt){
     var tzoffset = dt.getTimezoneOffset() * 60000; //offset in milliseconds
@@ -167,15 +174,22 @@ export class GeneralProvider {
     return localISOTime.toISOString().slice(0, 19).replace('T', ' ');
   }
 
-  convertBoolToInt(arr: any){
-    for (var key in arr){
-      if (arr.hasOwnProperty(key)) {
-        if (arr[key] === true)
-          arr[key] = "1";
-        if (arr[key] === false)
-          arr[key] = "0";
-      }
-    }
-    return arr;
+  // convertBoolToInt(arr: any){
+  //   for (var key in arr){
+  //     if (arr.hasOwnProperty(key)) {
+  //       if (arr[key] === true)
+  //         arr[key] = "1";
+  //       if (arr[key] === false)
+  //         arr[key] = "0";
+  //     }
+  //   }
+  //   return arr;
+  // }
+
+  convertIntToBool(str){
+    if(str == "1")
+      return true;
+    else if( str == "0")
+      return false;
   }
 }

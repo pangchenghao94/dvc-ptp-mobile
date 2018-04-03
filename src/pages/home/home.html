@@ -18,46 +18,42 @@
   <ion-label class="alert alert-info" *ngIf="emptyAssignment"><strong>NOTE</strong>   You do not have assignment today.</ion-label>
 
   <!-- <div #content></div> -->
-  <ion-card *ngFor="let assignment of assignments" text-wrap>
-    <ion-list (click)="assignmentClick(assignment.assignment_id)">
-      
-      <ion-item>
-        <ion-row>
-          <h2 col-5>
-            <strong>Team</strong>
-          </h2>
-          <p col-7>{{assignment.team}}</p>
-        </ion-row>
-      </ion-item>
+  <ion-card *ngFor="let assignment of assignments" text-wrap (click)="assignmentClick(assignment.assignment_id)">
+    <ion-item>
+      <ion-row>
+        <h2 col-5>
+          <strong>Team</strong>
+        </h2>
+        <p col-7>{{assignment.team}}</p>
+      </ion-row>
+    </ion-item>
   
-      <ion-item>
-        <ion-row>
-          <h2 col-5>
-            <strong>Postcode</strong>
-          </h2>
-          <p col-7>{{assignment.postcode}}</p>
-        </ion-row>
-      </ion-item>
+    <ion-item>
+      <ion-row>
+        <h2 col-5>
+          <strong>Postcode</strong>
+        </h2>
+        <p col-7>{{assignment.postcode}}</p>
+      </ion-row>
+    </ion-item>
   
-      <ion-item>
-        <ion-row>
-          <h2 col-5>
-            <strong>Address</strong>
-          </h2>
-          <p col-7>{{assignment.address}}</p>
-        </ion-row>
-      </ion-item>
+    <ion-item>
+      <ion-row>
+        <h2 col-5>
+          <strong>Address</strong>
+        </h2>
+        <p col-7>{{assignment.address}}</p>
+      </ion-row>
+    </ion-item>
   
-      <ion-item>
-        <ion-row>
-          <h2 col-5>
-            <strong>Remark</strong>
-          </h2>
-          <p col-7>{{assignment.remark}}</p>
-        </ion-row>
-      </ion-item>
-  
-    </ion-list>
+    <ion-item>
+      <ion-row>
+        <h2 col-5>
+          <strong>Remark</strong>
+        </h2>
+        <p col-7>{{assignment.remark}}</p>
+      </ion-row>
+    </ion-item>
   </ion-card>
 
 </ion-content>

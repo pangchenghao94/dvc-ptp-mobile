@@ -33,7 +33,7 @@ export class ModalFloorPlanPage {
     this.viewCtrl.dismiss(dataURL);
   }
 
-  closeModal(exhibit_id?: any){
+  closeModal(){
     this.viewCtrl.dismiss();
   }
 }

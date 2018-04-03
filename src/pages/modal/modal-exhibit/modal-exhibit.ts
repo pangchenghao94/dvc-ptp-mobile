@@ -43,6 +43,7 @@ export class ModalExhibitPage {
       // });
 
       this.poDetailsForm = this.fb.group({
+        exhibit_id: '',
         po_full_name: '',
         po_ic_no: ['', [Validators.pattern("^[0-9]{12,12}$")]],
         acceptance: true
@@ -55,16 +56,17 @@ export class ModalExhibitPage {
       });
   }
 
-  ionViewDidLoad() {}
-
-  ionViewDidEnter(){
+  ionViewDidEnter() {
+    debugger;
     if(this.navParams.get("exhibitData") != null){
       let exhibitData = this.navParams.get("exhibitData");
 
       this.exhibitItems = exhibitData.exhibitItems;      
-      this.premiseLocationURI = exhibitData.exhibit.premise_location_URI;
-      this.floorPlanURI = exhibitData.exhibit.floor_plan_URI;
+      
+      this.premiseLocationURI = exhibitData.exhibit.premise_location_URI == null ? exhibitData.exhibit.premise_location_path : exhibitData.exhibit.premise_location_URI;
+      this.floorPlanURI = exhibitData.exhibit.floor_plan_URI == null ? exhibitData.exhibit.floor_plan_path : exhibitData.exhibit.floor_plan_URI;
       this.poDetailsForm.patchValue({
+        exhibit_id: exhibitData.exhibit.exhibit_id,
         po_full_name: exhibitData.exhibit.po_full_name,
         po_ic_no: exhibitData.exhibit.po_ic_no,
         acceptance: exhibitData.exhibit.acceptance
@@ -156,19 +158,20 @@ export class ModalExhibitPage {
     }
   }
 
-  saveExhibit() {
+  submit() {
     if(this.poDetailsForm.get('po_full_name').value == "" || this.poDetailsForm.get("po_ic_no").value == ""){
       this.general.displayConfirm("Warning", "The premise owner details are incomplete, confirm to save exhibit?", ()=>{
-        this.uploadExhibit();
+        this.saveExhibit();
       });
     }
     else{
-      this.uploadExhibit();
+      this.saveExhibit();
     }
   }
 
-  uploadExhibit(){
+  saveExhibit(){
     let exhibit: Exhibit = new Exhibit();
+    exhibit.exhibit_id            = this.poDetailsForm.get('exhibit_id').value;
     exhibit.po_full_name          = this.poDetailsForm.get('po_full_name').value;
     exhibit.po_ic_no              = this.poDetailsForm.get('po_ic_no').value;
     exhibit.acceptance            = this.poDetailsForm.get('acceptance').value;
@@ -181,141 +184,6 @@ export class ModalExhibitPage {
     };
 
     this.viewCtrl.dismiss(dismissData);
-
-    // let loading = this.general.displayLoading('Saving Exhibit...');
-
-    // let exhibit = new Exhibit;
-    // exhibit.po_full_name = this.poDetailsForm.get('po_full_name').value;
-    // exhibit.po_ic_no = this.poDetailsForm.get('po_ic_no').value;
-    // exhibit.acceptance = this.poDetailsForm.get('acceptance').value == "true" ? "1" : "0";
-
-    // let postData = JSON.parse(JSON.stringify(this.authObj));
-    // postData.data = exhibit;
-
-    // this.auth.postData(postData, "api/exhibit/add").then((result) => {
-    //   let responseData: any = result;
-
-    //   if (responseData.status == "0") {
-    //     this.general.displayUnauthorizedAccessAlert(responseData.message);
-    //     loading.dismiss();
-    //   }
-    //   else {
-    //     if (responseData.error) {
-    //       this.general.displayUnexpectedError(responseData.error.text);
-    //       loading.dismiss();
-    //     }
-
-    //     else {
-    //       //********************************UPLOAD PREMISE LOCATION******************************************/
-    //       let url1 = this.auth.getApiURL() + "api/upload/premise_location_drawing";
-          
-    //       // File for Upload and file name
-    //       let targetPath1 = this.premiseLocationURI;
-    //       let filename1 = "premise_location_drawing.png";
-          
-    //       //params
-    //       let uploadParam1 = JSON.parse(JSON.stringify(this.authObj));
-    //       uploadParam1.exhibit_id = responseData.data.id;
-
-    //       var options1: FileUploadOptions = {
-    //         fileKey: "file",
-    //         fileName: filename1,
-    //         chunkedMode: false,
-    //         mimeType: "multipart/form-data",
-    //         params: uploadParam1
-    //       };
-
-    //       const fileTransfer1: FileTransferObject = this.transfer.create();
-    //       // Use the FileTransfer to upload the image
-    //       fileTransfer1.upload(targetPath1, url1, options1).then(data => {},
-    //         err => {
-    //           this.general.displayUnexpectedError(JSON.stringify(err));
-    //           loading.dismiss();
-    //         });
-    //       //********************************EOF PREMISE LOCATION******************************************/
-
-
-    //       //********************************UPLOAD FLOOR PLAN******************************************/
-    //       let url2 = this.auth.getApiURL() + "api/upload/floor_plan_drawing";
-          
-    //       // File for Upload and file name
-    //       let targetPath2 = this.floorPlanURI;
-    //       let filename2 = "floor_plan_drawing.png";
-          
-    //       //params
-    //       let uploadParam2 = JSON.parse(JSON.stringify(this.authObj));
-    //       uploadParam2.exhibit_id = responseData.data.id;
-
-    //       var options2: FileUploadOptions = {
-    //         fileKey: "file",
-    //         fileName: filename2,
-    //         chunkedMode: false,
-    //         mimeType: "multipart/form-data",
-    //         params: uploadParam2
-    //       };
-
-    //       const fileTransfer2: FileTransferObject = this.transfer.create();
-    //       // Use the FileTransfer to upload the image
-    //       fileTransfer2.upload(targetPath2, url2, options2).then(data => {},
-    //         err => {
-    //           this.general.displayUnexpectedError(JSON.stringify(err));
-    //           loading.dismiss();
-    //         });
-    //       //********************************EOF UPLOAD FLOOR PLAN******************************************/
-
-
-    //       //********************************START UPLOAD EXHIBIT ITEMS******************************************/
-    //       //Destination URL
-    //       let url3 = this.auth.getApiURL() + "api/upload/exhibit_item";
-
-    //       let counter = 0;
-    //       this.exhibitItems.forEach(item => {
-    //         // File for Upload and File name only
-    //         let targetPath3 = this.pathForImage(item.fileName);
-    //         let filename3 = item.fileName;
-
-    //         let uploadParam3 = JSON.parse(JSON.stringify(this.authObj));
-    //         uploadParam3.fileName = filename3;
-    //         uploadParam3.exhibit_id = responseData.data.id;
-    //         uploadParam3.code = item.code;
-    //         uploadParam3.type = item.type;
-
-    //         var options3: FileUploadOptions = {
-    //           fileKey: "file",
-    //           fileName: filename3,
-    //           chunkedMode: false,
-    //           mimeType: "multipart/form-data",
-    //           params: uploadParam3
-    //         };
-
-    //         const fileTransfer: FileTransferObject = this.transfer.create();
-    //         // Use the FileTransfer to upload the image
-    //         fileTransfer.upload(targetPath3, url3, options3).then(data => {
-    //           let responseData: any = data.response
-    //           if(responseData.status == "1"){
-    //             counter++;
-    //             if (counter == this.exhibitItems.length) {
-    //               loading.dismiss();                
-    //               this.general.displayToast('Exhibit have been saved successfully');
-    //               this.closeModal(responseData.data.id);
-    //             }
-    //           }
-    //           else
-    //             this.general.displayUnexpectedError(JSON.stringify(responseData));
-    //             loading.dismiss();
-    //         },
-    //         err => {
-    //           this.general.displayUnexpectedError(JSON.stringify(err));
-    //           loading.dismiss();
-    //         });
-    //       });
-    //     }
-    //   }
-    // },
-    // (err) => {
-    //   this.general.displayAPIErrorAlert();
-    //   loading.dismiss();
-    // });
   }
 
   addExhibitItem(){

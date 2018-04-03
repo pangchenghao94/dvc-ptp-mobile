@@ -36,6 +36,7 @@ export class ModalSek8Page {
     this.defaultDate = temp_defaultDate.toISOString();
     
     this.sek8Form = this.fb.group({
+      sek8_id: '',
       checking_date: this.defaultDate,
       chkbx1: [false, Validators.required],
       chkbx2: [false, Validators.required],
@@ -61,6 +62,7 @@ export class ModalSek8Page {
    if(this.navParams.get("sek8Data") != null){
     let sek8Data = this.navParams.get("sek8Data");
     this.sek8Form.patchValue({
+      sek8_id: sek8Data.sek8_id,
       checking_date: sek8Data.checking_date,
       chkbx1: sek8Data.chkbx1,
       chkbx2: sek8Data.chkbx2,
@@ -86,6 +88,7 @@ export class ModalSek8Page {
 
   saveSek8(){
     let dismissData = {
+      sek8_id: this.sek8Form.get("sek8_id").value,    
       checking_date: this.sek8Form.get("checking_date").value,    
       chkbx1: this.sek8Form.get("chkbx1").value,
       chkbx2: this.sek8Form.get("chkbx2").value,

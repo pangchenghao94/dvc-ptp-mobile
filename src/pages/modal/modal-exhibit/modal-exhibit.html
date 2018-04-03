@@ -46,9 +46,9 @@
     </ion-item>
 
     <div class="help-block" *ngIf="(poDetailsForm.get('po_ic_no').touched || poDetailsForm.get('po_ic_no').dirty) && poDetailsForm.get('po_ic_no').errors">
-      <div padding-left padding-right1>
+      <div padding-left padding-right>
         <ion-label text-wrap *ngIf="poDetailsForm.get('po_ic_no').errors.pattern" class="alert alert-danger error-txt-padding">
-          * The password must have at least 8 characters with minimum one letter and one number.
+          * The IC number must be 12 numeric characters.
         </ion-label>
       </div>
     </div>
@@ -147,7 +147,7 @@
   <ion-row>
     <ion-col>
       <button ion-button block
-      (click)="saveExhibit()" [disabled]="exhibitItems.length <= 0 || premiseLocationURI == null || floorPlanURI == null">
+      (click)="submit()" [disabled]="exhibitItems.length <= 0 || premiseLocationURI == null || floorPlanURI == null">
         Save Exhibit
       </button>
     </ion-col>

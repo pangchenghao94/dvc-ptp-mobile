@@ -22,6 +22,7 @@ export class ModalSek5Page {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private viewCtrl: ViewController, private general: GeneralProvider) {
     this.sek5Form = this.fb.group({
+      sek5_id: '',
       date: ['', Validators.required],
       time: ['', Validators.required],
       remark: ''
@@ -33,8 +34,8 @@ export class ModalSek5Page {
   ionViewDidEnter(){
     if(this.navParams.get("sek5Data") != null){
       let sek5Data = this.navParams.get("sek5Data");
-
       this.sek5Form.patchValue({
+        sek5_id: sek5Data.sek5_id,
         date: sek5Data.date,
         time: sek5Data.time,
         remark: sek5Data.remark
@@ -57,6 +58,7 @@ export class ModalSek5Page {
 
   saveSek5(){
     let dismissData = {
+      sek5_id:  this.sek5Form.get("sek5_id").value,
       date: this.sek5Form.get("date").value,
       time: this.sek5Form.get("time").value,
       remark: this.sek5Form.get("remark").value,

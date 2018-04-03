@@ -5,28 +5,44 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-<ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     
     <ion-title>
-      <!-- <ion-icon ios="ios-list-box" md="md-list-box" class="padding-right-10"></ion-icon>    -->
+      <ion-icon ios="ios-list-box" md="md-list-box" class="padding-right-10"></ion-icon>   
       I&D List
     </ion-title>
-
-    <ion-buttons end>
-        <button ion-button large icon-only (click)="addAssignment()">
-          <ion-icon ios="ios-add-circle" md="md-add-circle" color="primary"></ion-icon>
-        </button>
-      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-label class="alert alert-info" *ngIf="emptyAssignment"><strong>NOTE</strong>   You do not have assignment today.</ion-label>
+
+  <ion-card *ngFor="let ind of inds" text-wrap
+    (click)="indClick(ind.ind_id)">
+    <ion-item>
+      <ion-row>
+        <ion-col col-8>
+          <h2><strong>{{ ind.po_name }}</strong></h2>
+        </ion-col>
+        <ion-col col-4 text-right>
+          <p>{{ ind.last_modified | date: "shortTime" }}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <span>{{ ind.p_shortAddr }}</span>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-card>
 
 </ion-content>

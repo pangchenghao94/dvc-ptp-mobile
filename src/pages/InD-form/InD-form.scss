@@ -3,11 +3,12 @@ page-InD-form {
     //     border-bottom: unset;
     // }
     .help-block{
-        padding-left: 16px;
-        padding-right: 16px;
-
         ion-label{
             margin-right: 0;
         }
+    }
+
+    .item-ios{
+        padding-right: 16px;
     }
 }
