@@ -11,15 +11,20 @@ export class ModalPremiseLocationPage {
   }
 
   ionViewDidEnter(){
+    var canvas = <HTMLCanvasElement>document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+
     if(this.navParams.get("uri") != null){
-      var canvas = <HTMLCanvasElement>document.getElementById("myCanvas");
-      var context = canvas.getContext("2d");
       var img = new Image();
       img.src = this.navParams.get("uri");
       img.onload = function() {
         context.drawImage(img, 0, 0);
       };  
     }  
+    else{
+      context.fillStyle = "#fff";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+    }
   }
 
   ionViewDidLoad() {}

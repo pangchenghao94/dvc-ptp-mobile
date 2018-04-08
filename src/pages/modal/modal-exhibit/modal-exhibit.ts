@@ -57,7 +57,6 @@ export class ModalExhibitPage {
   }
 
   ionViewDidEnter() {
-    debugger;
     if(this.navParams.get("exhibitData") != null){
       let exhibitData = this.navParams.get("exhibitData");
 
@@ -188,7 +187,7 @@ export class ModalExhibitPage {
 
   addExhibitItem(){
     if(this.exhibitForm.get('img').value == null){
-      this.general.displayAlert("dlskfjsldkf","it's null");
+      this.general.displayAlert("Error!","it's null");
     }
     else{
       let exhibitItem: ExhibitItem = new ExhibitItem();
