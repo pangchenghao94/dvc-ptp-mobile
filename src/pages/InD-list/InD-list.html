@@ -24,7 +24,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-label class="alert alert-info" *ngIf="emptyAssignment"><strong>NOTE</strong>   You do not have assignment today.</ion-label>
+  <ion-label class="alert alert-info" *ngIf="emptyInds"><strong>NOTE</strong>   You do not have assignment today.</ion-label>
 
   <ion-card *ngFor="let ind of inds" text-wrap
     (click)="indClick(ind.ind_id)">

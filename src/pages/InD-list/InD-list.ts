@@ -20,6 +20,7 @@ export class InDListPage {
   inds: any;
   loading: any;
   authObj: any;
+  emptyInds: any = false;
  
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthProvider, private general: GeneralProvider) {
   }
@@ -51,6 +52,7 @@ export class InDListPage {
         }
         else {
           this.inds = responseData.data;
+          Object.keys(this.inds).length > 0 ? this.emptyInds = false : this.emptyInds = true;
           this.loading.dismiss();
         }
       }

@@ -55,12 +55,8 @@ export class HomePage {
         
         else{
           this.assignments = responseData.data;
-          if(Object.keys(this.assignments).length > 0){
-            this.emptyAssignment = false;
-          }
-          else{
-            this.emptyAssignment = true;
-          }
+          Object.keys(this.assignments).length > 0 ? this.emptyAssignment = false : this.emptyAssignment = true;
+
           // if(this.generateAssignmentList(responseData.data)){
           //   return true;
           // }
