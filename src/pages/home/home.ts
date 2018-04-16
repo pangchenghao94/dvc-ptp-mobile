@@ -56,13 +56,13 @@ export class HomePage {
         else{
           this.assignments = responseData.data;
           Object.keys(this.assignments).length > 0 ? this.emptyAssignment = false : this.emptyAssignment = true;
-
           // if(this.generateAssignmentList(responseData.data)){
           //   return true;
           // }
         }
       }, 
       (err) =>{
+        console.log(err);
         this.general.displayAPIErrorAlert();
       });
     })

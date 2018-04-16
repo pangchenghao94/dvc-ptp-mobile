@@ -19,40 +19,114 @@
 
   <!-- <div #content></div> -->
   <ion-card *ngFor="let assignment of assignments" text-wrap (click)="assignmentClick(assignment.assignment_id)">
-    <ion-item>
+    <ion-item padding-bottom padding-top>
       <ion-row>
-        <h2 col-5>
-          <strong>Team</strong>
-        </h2>
-        <p col-7>{{assignment.team}}</p>
+        <ion-col>
+          <h2>
+            <strong>Team</strong>
+          </h2>
+        </ion-col>
       </ion-row>
-    </ion-item>
-  
-    <ion-item>
       <ion-row>
-        <h2 col-5>
-          <strong>Postcode</strong>
-        </h2>
-        <p col-7>{{assignment.postcode}}</p>
+        <ion-col>
+          <p>{{assignment.team}}</p>
+        </ion-col>
       </ion-row>
-    </ion-item>
-  
-    <ion-item>
       <ion-row>
-        <h2 col-5>
-          <strong>Address</strong>
-        </h2>
-        <p col-7>{{assignment.address}}</p>
+        <ion-col>
+          <h2>
+            <strong>PKA (Pembantu Kesihatan Am)</strong>
+          </h2>
+        </ion-col>
       </ion-row>
-    </ion-item>
-  
-    <ion-item>
       <ion-row>
-        <h2 col-5>
-          <strong>Remark</strong>
-        </h2>
-        <p col-7>{{assignment.remark}}</p>
+        <ion-col>
+          <p>{{ assignment.pka_full_name == null ? '-' : assignment.pka_full_name }}</p>
+        </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col>
+          <h2>
+            <strong>PA (Pembantu Am)</strong>
+          </h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>{{ assignment.pa_full_name == null ? '-' : assignment.pa_full_name }}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h2>
+            <strong>Postcode</strong>
+          </h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>{{assignment.postcode}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h2>
+            <strong>Address</strong>
+          </h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>{{assignment.address}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h2>
+            <strong>Remark</strong>
+          </h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>{{assignment.remark}}</p>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-item>
+        <ion-row>
+          <h2 col-5>
+            <strong>Team</strong>
+          </h2>
+          <p col-7>{{assignment.team}}</p>
+        </ion-row>
+      </ion-item>
+    
+      <ion-item>
+        <ion-row>
+          <h2 col-5>
+            <strong>Postcode</strong>
+          </h2>
+          <p col-7>{{assignment.postcode}}</p>
+        </ion-row>
+      </ion-item>
+    
+      <ion-item>
+        <ion-row>
+          <h2 col-5>
+            <strong>Address</strong>
+          </h2>
+          <p col-7>{{assignment.address}}</p>
+        </ion-row>
+      </ion-item>
+    
+      <ion-item>
+        <ion-row>
+          <h2 col-5>
+            <strong>Remark</strong>
+          </h2>
+          <p col-7>{{assignment.remark}}</p>
+        </ion-row>
+      </ion-item> -->
     </ion-item>
   </ion-card>
 
