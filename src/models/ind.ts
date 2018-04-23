@@ -2,6 +2,7 @@ export class InD {
     ind_id: number;
     assignment_id: number;
     user_id: number;
+    area_inspection: string;
     p_cooperation: string;
     p_close: string;
     p_empty: string;
@@ -15,7 +16,8 @@ export class InD {
     container_type: string;
     no_pot_out_breeding: number;
     no_pot_in_breeding: number;
-    act_abating: string;
+    abating_measure_type: string;
+    abating_amount: number;
     act_destroy: string;
     act_education: string;
     act_pamphlet: string;

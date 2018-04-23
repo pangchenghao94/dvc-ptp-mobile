@@ -35,11 +35,16 @@
       </ion-item-divider>
 
       <ion-item no-lines>
+        <ion-label>Area Inspection</ion-label>
+        <ion-checkbox formControlName="area_inspection"></ion-checkbox>
+      </ion-item>
+
+      <ion-item no-lines [hidden]="InDForm.get('area_inspection').value">
         <ion-label>Premise Owner Cooperation</ion-label>
         <ion-checkbox formControlName="p_cooperation"></ion-checkbox>
       </ion-item>
 
-      <ion-row>
+      <ion-row [hidden]="InDForm.get('area_inspection').value">
         <ion-item no-lines col-6>
           <ion-label>Empty</ion-label>
           <ion-checkbox id="p_empty" formControlName="p_empty" (ionChange)="toggleEmptyToClose($event)"></ion-checkbox>
@@ -51,11 +56,11 @@
       </ion-row>
 
       <ion-item>
-        <ion-label floating>Full Name</ion-label>
+        <ion-label floating>{{ InDForm.get('area_inspection').value ? 'Area Name' : 'Full Name' }}</ion-label>
         <ion-input type="text" formControlName="po_name"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item [hidden]="InDForm.get('area_inspection').value">
         <ion-label floating>IC. No (eg: 700909015456)</ion-label>
         <ion-input type="text" formControlName="po_id"></ion-input>
       </ion-item>
@@ -69,11 +74,11 @@
       </div>
 
       <ion-item>
-        <ion-label floating>Address</ion-label>
+        <ion-label floating>Address *</ion-label>
         <ion-input type="text" formControlName="p_shortAddr"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item [hidden]="InDForm.get('area_inspection').value">
         <ion-label floating>No. of Family Members</ion-label>
         <ion-input type="number" formControlName="no_familyMember"></ion-input>
       </ion-item>
@@ -84,7 +89,7 @@
         </ion-label>
       </div>
 
-      <ion-item>
+      <ion-item [hidden]="InDForm.get('area_inspection').value">
         <ion-label floating>No. of Fever Member</ion-label>
         <ion-input type="number" formControlName="no_fever"></ion-input>
       </ion-item>
@@ -161,11 +166,26 @@
       <ion-item-divider color="light" text-center text-uppercase margin-top text-wrap>
         <strong>Action</strong>
       </ion-item-divider>
-      
-      <ion-item no-lines>
-        <ion-label>Abating</ion-label>
-        <ion-checkbox formControlName="act_abating"></ion-checkbox>
-      </ion-item>
+
+      <ion-row>
+        <ion-col col-7>
+          <ion-item>
+            <ion-label floating>Abating Amount</ion-label>
+            <ion-input type="number" formControlName="abating_amount"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-5>
+          <ion-item>
+            <ion-label floating>Measure Type</ion-label>
+            <ion-select formControlName="abating_measure_type">
+              <ion-option value="0">Gram</ion-option>
+              <ion-option value="1">ML</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
       <ion-item no-lines>
         <ion-label>Destroy Breeding Area</ion-label>
         <ion-checkbox formControlName="act_destroy"></ion-checkbox>

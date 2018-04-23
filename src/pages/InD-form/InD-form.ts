@@ -44,6 +44,7 @@ export class InDFormPage {
       this.InDForm = this.fb.group({ 
         ind_id: '',
         assignment_id: '',
+        area_inspection: false,
         p_close: false,
         p_empty: false,
         p_cooperation: true,
@@ -57,7 +58,8 @@ export class InDFormPage {
         container_type: '',
         no_pot_out_breeding: ['', Validators.min(0)],
         no_pot_in_breeding: ['', Validators.min(0)],
-        act_abating: false,
+        abating_amount: '',
+        abating_measure_type: '0',        
         act_destroy: false,
         act_education: false,
         act_pamphlet: false,
@@ -106,6 +108,7 @@ export class InDFormPage {
           let ind_data = responseData.ind;
           this.InDForm.patchValue({
             assignment_id: ind_data.assignment_id,
+            area_inspection: this.general.convertIntToBool(ind_data.area_inspection),
             p_cooperation: this.general.convertIntToBool(ind_data.p_cooperation),
             p_close: this.general.convertIntToBool(ind_data.p_close),
             p_empty: this.general.convertIntToBool(ind_data.p_empty),
@@ -119,7 +122,8 @@ export class InDFormPage {
             container_type: ind_data.container_type,
             no_pot_out_breeding: ind_data.no_pot_out_breeding,
             no_pot_in_breeding: ind_data.no_pot_in_breeding,
-            act_abating: this.general.convertIntToBool(ind_data.act_abating),
+            abating_amount: ind_data.abating_amount,
+            abating_measure_type: ind_data.abating_measure_type,
             act_destroy: this.general.convertIntToBool(ind_data.act_destroy),
             act_education: this.general.convertIntToBool(ind_data.act_education),
             act_pamphlet: this.general.convertIntToBool(ind_data.act_pamphlet),
@@ -362,7 +366,7 @@ export class InDFormPage {
         postData.sek5Data = this.getSek5Data();
       if(this.sek8Data != null)
         postData.sek8Data = this.sek8Data;
-
+      console.log(postData);
       this.auth.postData(postData, "api/ind/add").then(async (result) => {
         let responseData: any = result;
 
@@ -482,6 +486,7 @@ export class InDFormPage {
               .then((res) => {
                 this.general.displayToast("I&D has been added successfully");
                 this.loading.dismiss();
+                this.navCtrl.setRoot("HomePage");
               }, 
               (firstErr) => {
                 this.loading.dismiss();
@@ -492,6 +497,7 @@ export class InDFormPage {
             else{
               this.general.displayToast("I&D has been added successfully");
               this.loading.dismiss();
+              this.navCtrl.setRoot("HomePage");              
             }
           }
         }
@@ -520,7 +526,7 @@ export class InDFormPage {
         postData.sek5Data = this.getSek5Data();
       if(this.sek8Data != null)
         postData.sek8Data = this.sek8Data;
-
+      
       this.auth.postData(postData, "api/ind/update").then(async (result) => {
         let responseData: any = result;
 
@@ -558,6 +564,7 @@ export class InDFormPage {
               .then((res) => {
                 this.general.displayToast("I&D has been edited successfully");
                 this.loading.dismiss();
+                this.navCtrl.setRoot("InDListPage");
               }, 
               (firstErr) => {
                 this.loading.dismiss();
@@ -568,6 +575,7 @@ export class InDFormPage {
             else{
               this.general.displayToast("I&D has been edited successfully");
               this.loading.dismiss();
+              this.navCtrl.setRoot("InDListPage");              
             }
           }
         }
@@ -676,6 +684,7 @@ export class InDFormPage {
     let data: InD             = new InD();
     data.ind_id               = this.InDForm.get("ind_id").value;    
     data.assignment_id        = this.InDForm.get("assignment_id").value;
+    data.area_inspection      = this.InDForm.get("area_inspection").value;
     data.p_close              = this.InDForm.get("p_close").value;
     data.p_empty              = this.InDForm.get("p_empty").value;
     data.p_cooperation        = this.InDForm.get("p_cooperation").value;
@@ -689,7 +698,8 @@ export class InDFormPage {
     data.container_type       = this.InDForm.get("container_type").value;
     data.no_pot_out_breeding  = this.InDForm.get("no_pot_out_breeding").value;
     data.no_pot_in_breeding   = this.InDForm.get("no_pot_in_breeding").value;
-    data.act_abating          = this.InDForm.get("act_abating").value;
+    data.abating_measure_type = this.InDForm.get("abating_measure_type").value;
+    data.abating_amount       = this.InDForm.get("abating_amount").value;
     data.act_destroy          = this.InDForm.get("act_destroy").value;
     data.act_education        = this.InDForm.get("act_education").value;
     data.act_pamphlet         = this.InDForm.get("act_pamphlet").value;
