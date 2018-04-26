@@ -23,16 +23,72 @@
 
 
 <ion-content padding>
+  <form [formGroup]="userForm" novalidate>
 
+    <ion-item>
+      <ion-icon name='person' item-start></ion-icon>
+      <ion-label stacked>Full Name</ion-label>
+      <ion-input type="text" formControlName="full_name"></ion-input>
+    </ion-item>
+    
+    <div class="help-block" *ngIf="(userForm.get('full_name').touched || userForm.get('full_name').dirty) && (userForm.get('full_name').errors || userForm.get('full_name').errors)">
+      <ion-label text-wrap *ngIf="userForm.get('full_name').errors?.required" class="alert alert-danger error-txt-padding">
+        * Please enter your full name.
+      </ion-label>
+      <ion-label text-wrap *ngIf="userForm.get('full_name').errors?.minlength" class="alert alert-danger error-txt-padding">
+        * The full must longer than 6 characters.
+      </ion-label>
+    </div>
+
+    <ion-item>
+      <ion-icon name='transgender' item-start></ion-icon>
+      <ion-label stacked>Gender</ion-label>
+      <ion-select formControlName="gender">
+        <ion-option value="0" selected="true">Female</ion-option>
+        <ion-option value="1">Male</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name='call' item-start></ion-icon>
+      <ion-label stacked>Contact No.</ion-label>
+      <ion-input type="text" formControlName="phone_no"></ion-input>
+    </ion-item>
+
+    <div class="help-block" *ngIf="(userForm.get('phone_no').touched || userForm.get('phone_no').dirty) && (userForm.get('phone_no').errors || userForm.get('phone_no').errors)">
+      <ion-label text-wrap *ngIf="userForm.get('phone_no').errors?.required" class="alert alert-danger error-txt-padding">
+        * Please enter your contact no.
+      </ion-label>
+      <ion-label text-wrap *ngIf="userForm.get('phone_no').errors?.pattern" class="alert alert-danger error-txt-padding">
+        * The contact no. must be between 10 to 13 numeric characters (eg: 60122790153).
+      </ion-label>
+    </div>
+    
+    <ion-item>
+      <ion-icon name='mail' item-start></ion-icon>
+      <ion-label stacked>Email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+
+    <div class="help-block" *ngIf="(userForm.get('email').touched || userForm.get('email').dirty) && (userForm.get('email').errors || userForm.get('email').errors)">
+      <ion-label text-wrap *ngIf="userForm.get('email').errors?.required" class="alert alert-danger error-txt-padding">
+        * Please enter your email address.
+      </ion-label>
+      <ion-label text-wrap *ngIf="userForm.get('email').errors?.email" class="alert alert-danger error-txt-padding">
+        * The entered email address is invalid.
+      </ion-label>
+    </div>
+
+  </form>
 </ion-content>
 
 <ion-footer no-border>
   <ion-row>
     <ion-col col-6>
-      <button ion-button block (click)="updateUser()" color="primary"> Update Details</button>  
+      <button ion-button block (click)="updateUser()" color="primary" [disabled]="!userForm.valid"> Update Details</button>  
     </ion-col>
     <ion-col col-6>
-      <button ion-button block (click)="cancel()" color="danger"> Cancel</button>  
+      <button ion-button block (click)="closeModal()" color="danger"> Cancel</button>  
     </ion-col>
   </ion-row>
 </ion-footer>

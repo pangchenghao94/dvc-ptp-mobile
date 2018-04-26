@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Loading } from 'ionic-angular';
 import { GeneralProvider } from '../../providers/general/general';
 import { AuthProvider } from '../../providers/auth/auth';
 import { User } from '../../models/user';
@@ -11,12 +11,17 @@ import { User } from '../../models/user';
 })
 export class ProfilePage {
   user : User = new User();
-
+  loading: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private general: GeneralProvider, private auth: AuthProvider, 
     private modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
+    this.getUser();
+  }
+
+  getUser(){
+    this.loading = this.general.displayLoading("Loading...");
     this.general.getAuthObject().then((val)=>{
       this.auth.postData(val, "api/user/get/" + val.user_id).then((result) => {
         let user : any = result;
@@ -35,25 +40,28 @@ export class ProfilePage {
             this.user.phone_no = user.data.phone_no;
             this.user.email = user.data.email;
             this.user.usertypeStr = this.general.getUserTypeDesc(user.data.usertype);
-            this.user.genderStr = this.general.getGenderStr(user.data.gender);
+            this.user.gender = user.data.gender;
           }
         }
+        this.loading.dismiss();
       }, 
       (err) =>{
         this.general.displayAPIErrorAlert();
+        this.loading.dismiss();
       });
     })
     .catch((err) => {
         this.general.displayUnexpectedError(err);
+        this.loading.dismiss();
       }
     );
   }
 
   updateDetails(){
-    let updateUserDetailsModal = this.modalCtrl.create("ModalUpdateUserDetailsPage", {"user_id" : this.user.user_id});
+    let updateUserDetailsModal = this.modalCtrl.create("ModalUpdateUserDetailsPage", {"user" : this.user});
 
     updateUserDetailsModal.onDidDismiss(data=>{
-      console.log("updatedetails dismiss");
+      this.getUser();
     });
 
     updateUserDetailsModal.present();
