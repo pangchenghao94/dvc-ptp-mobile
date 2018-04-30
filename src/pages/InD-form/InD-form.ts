@@ -188,22 +188,20 @@ export class InDFormPage {
                 let s3_premiseLocation = this.file.dataDirectory + this.exhibitData.exhibit.premise_location_path;                                   
                 promisesArray.push(
                   ft.download(responseData.premise_location, s3_premiseLocation).then((entry) => {
-                    console.log("premise loc done");
                     this.exhibitData.exhibit.premise_location_URI = entry.toURL();
                   }, (error) => {
-                    this.general.displayUnexpectedError(error);                    
-                    console.log(JSON.stringify(error));
+                    this.general.displayUnexpectedError(JSON.stringify(error));        
+                    console.log(error);
                   })
                 );
 
                 let s3_floorPlan = this.file.dataDirectory + this.exhibitData.exhibit.floor_plan_path;                                                   
                 promisesArray.push(
                   ft.download(responseData.floor_plan, s3_floorPlan).then((entry) => {
-                    console.log("floorplan done");
                     this.exhibitData.exhibit.floor_plan_URI = entry.toURL();
                   }, (error) => {
-                    this.general.displayUnexpectedError(error);                    
-                    console.log(JSON.stringify(error));
+                    this.general.displayUnexpectedError(JSON.stringify(error));    
+                    console.log(error);
                   })
                 );
               }
@@ -366,7 +364,7 @@ export class InDFormPage {
         postData.sek5Data = this.getSek5Data();
       if(this.sek8Data != null)
         postData.sek8Data = this.sek8Data;
-      console.log(postData);
+
       this.auth.postData(postData, "api/ind/add").then(async (result) => {
         let responseData: any = result;
 
@@ -568,7 +566,7 @@ export class InDFormPage {
               }, 
               (firstErr) => {
                 this.loading.dismiss();
-                this.general.displayUnexpectedError(firstErr);
+                this.general.displayUnexpectedError(JSON.stringify(firstErr));
                 console.error("Error uploading file.", firstErr);
               });
             }
@@ -613,8 +611,7 @@ export class InDFormPage {
           throw new Error("Fail to upload floor plan drawing.");
       }, 
       err => {
-        this.general.displayUnexpectedError(err);
-        this.loading.dismiss();
+        this.general.displayUnexpectedError(JSON.stringify(err));
       });
   }
 
@@ -642,8 +639,7 @@ export class InDFormPage {
           throw new Error("Fail to upload floor plan drawing.");
       }, 
       err => {
-        this.general.displayUnexpectedError(err);
-        this.loading.dismiss();
+        this.general.displayUnexpectedError(JSON.stringify(err));
       });
   }
 
@@ -675,8 +671,7 @@ export class InDFormPage {
         throw new Error("Fail to upload exhibit item.");
     },
     err => {
-      this.general.displayUnexpectedError(err);
-      this.loading.dismiss();
+      this.general.displayUnexpectedError(JSON.stringify(err));
     });
   }
 

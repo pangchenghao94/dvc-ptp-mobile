@@ -41,6 +41,12 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+        <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Allow camera usage</string>
+        </config-file>
+        <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Allow photo library usage</string>
+        </config-file>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -54,7 +60,7 @@
         <icon height="120" src="resources/ios/icon/icon-60@2x.png" width="120" />
         <icon height="180" src="resources/ios/icon/icon-60@3x.png" width="180" />
         <icon height="72" src="resources/ios/icon/icon-72.png" width="72" />
-        <icon height="144" src="resources/ios/icon/icon-72@2x.png" width="144" />
+        <icon height="144" src="resources/ios/icon/icon-72@2x.pnsg" width="144" />
         <icon height="76" src="resources/ios/icon/icon-76.png" width="76" />
         <icon height="152" src="resources/ios/icon/icon-76@2x.png" width="152" />
         <icon height="167" src="resources/ios/icon/icon-83.5@2x.png" width="167" />
@@ -98,4 +104,5 @@
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-nativegeocoder" spec="^3.1.1" />
     <engine name="android" spec="7.0.0" />
+    <engine name="ios" spec="4.5.4" />
 </widget>

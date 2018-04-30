@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthProvider {
-
-  apiURL : string = 'http://192.168.43.169/';
+  apiURL : string = 'http://ptpdvc-env.ap-southeast-1.elasticbeanstalk.com/';
+  // apiURL : string = 'http://192.168.43.169/';
   // apiURL : string = 'http://slimapp/';
   
   constructor(private http: HttpClient, private storage: Storage) { }

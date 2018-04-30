@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ActionSheetController, Platform, AlertController, Alert, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ActionSheetController, Platform, AlertController, Alert, ModalController, normalizeURL } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransferObject, FileTransfer, FileUploadOptions } from '@ionic-native/file-transfer';
@@ -9,6 +9,7 @@ import { GeneralProvider } from '../../../providers/general/general';
 import { AuthProvider } from '../../../providers/auth/auth';
 import { Exhibit } from '../../../models/exhibit';
 import { ExhibitItem } from '../../../models/exhibit_item';
+import { normalizeUrl } from 'ionic-angular/navigation/deep-linker';
 
 /**
  * Generated class for the ModalExhibitPage page.
@@ -35,12 +36,6 @@ export class ModalExhibitPage {
     private camera: Camera, private transfer: FileTransfer, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController,
     private platform: Platform, private filePath: FilePath, private general: GeneralProvider, private file: File, private auth: AuthProvider,
     private modalCtrl: ModalController) {
-      
-      // this.general.getAuthObject().then((val)=>{
-      //   this.authObj = val;
-      // }).catch((err) => {
-      //   this.general.displayUnexpectedError(JSON.stringify(err));
-      // });
 
       this.poDetailsForm = this.fb.group({
         exhibit_id: '',
@@ -103,7 +98,11 @@ export class ModalExhibitPage {
       quality: 90,
       sourceType: sourceType,
       saveToPhotoAlbum: false,
-      correctOrientation: true
+      correctOrientation: true,
+
+      targetWidth: 1000,
+      targetHeight: 1000,
+      encodingType: this.camera.EncodingType.JPEG
     };
 
     // Get the data of an image
@@ -153,7 +152,14 @@ export class ModalExhibitPage {
     if (img === null) {
       return '';
     } else {
-      return this.file.dataDirectory + img;
+      if (this.platform.is('android'))
+        return this.file.dataDirectory + img;
+      else{
+        if (this.platform.is('android')) 
+          return this.file.dataDirectory + img;
+        else
+          return normalizeURL(this.file.dataDirectory + img);
+      }
     }
   }
 
@@ -208,7 +214,7 @@ export class ModalExhibitPage {
   }
 
   openPremiseLocationModal(){
-    let premiseLocationModal = this.modalCtrl.create("ModalPremiseLocationPage", {"uri": this.premiseLocationURI});
+    let premiseLocationModal = this.modalCtrl.create("ModalPremiseLocationPage", {"uri": this.premiseLocationURI}, { cssClass: "modal-fullscreen" });
     premiseLocationModal.onDidDismiss(data=>{
       if(data != null)
         this.premiseLocationURI = data;
@@ -218,7 +224,7 @@ export class ModalExhibitPage {
   }
 
   openDrawFloorPlanModal(){
-    let floorPlanModal = this.modalCtrl.create("ModalFloorPlanPage", {"uri": this.floorPlanURI});
+    let floorPlanModal = this.modalCtrl.create("ModalFloorPlanPage", {"uri": this.floorPlanURI}, { cssClass: "modal-fullscreen" });
     floorPlanModal.onDidDismiss(data=>{
       if(data != null)
         this.floorPlanURI = data;
