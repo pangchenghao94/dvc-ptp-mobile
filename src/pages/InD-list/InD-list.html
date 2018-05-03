@@ -31,7 +31,7 @@
     <ion-item>
       <ion-row>
         <ion-col col text-right>
-          <p>{{ ind.last_modified | date:'shortTime' }}</p>
+          <p>{{ ind.last_modified | amDateFormat: 'h:mm a' }}</p>
         </ion-col>
       </ion-row>
       <ion-row>
