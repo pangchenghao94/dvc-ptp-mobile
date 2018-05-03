@@ -30,11 +30,8 @@
     (click)="indClick(ind.ind_id)">
     <ion-item>
       <ion-row>
-        <ion-col col-8>
-          <h2><strong>{{ ind.po_name }}</strong></h2>
-        </ion-col>
-        <ion-col col-4 text-right>
-          <p>{{ ind.last_modified | date: "shortTime" }}</p>
+        <ion-col col text-right>
+          <p>{{ ind.last_modified | date:'shortTime' }}</p>
         </ion-col>
       </ion-row>
       <ion-row>
