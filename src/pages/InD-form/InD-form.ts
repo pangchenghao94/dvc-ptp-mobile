@@ -266,7 +266,7 @@ export class InDFormPage {
   }
 
   openGPSModal(){
-    let gpsModal = this.modalCtrl.create("ModalGpsPage", {"positionData" : this.positionData});
+    let gpsModal = this.modalCtrl.create("ModalGpsPage", {"positionData" : this.positionData}, { cssClass: "modal-fullscreen white-backdrop" });
     gpsModal.onDidDismiss(data=>{
       console.log(data);
       this.isModal = false;

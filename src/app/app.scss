@@ -79,4 +79,11 @@
     }
 }
 
+.white-backdrop{
+    ion-backdrop{
+        background-color: white !important;
+        opacity: 0 !important;
+    }
+}
+
 .ios .modal-fullscreen { .modal-wrapper { top: 26px; } }

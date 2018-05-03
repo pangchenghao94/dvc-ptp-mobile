@@ -6,3 +6,11 @@ page-modal-gps {
         display: inline-block;
       }
 }
+
+.ios {
+    page-modal-gps{
+        ion-footer ion-row{
+            margin-bottom: 26px;
+        }
+    }
+}
