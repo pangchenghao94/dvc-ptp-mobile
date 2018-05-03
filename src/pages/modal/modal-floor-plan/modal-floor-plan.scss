@@ -1,3 +1,9 @@
 page-modal-floor-plan {
-
+}
+.ios {
+    page-modal-floor-plan{
+        ion-footer ion-row{
+            margin-bottom: 26px;
+        }
+    }
 }

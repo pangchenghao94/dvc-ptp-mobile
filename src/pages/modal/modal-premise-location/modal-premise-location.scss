@@ -1,3 +1,10 @@
 page-modal-premise-location {
 }
-$modal-inset-height-large: 100%;
+
+.ios {
+    page-modal-premise-location{
+        ion-footer ion-row{
+            margin-bottom: 26px;
+        }
+    }
+}

@@ -100,7 +100,6 @@ export class ModalGpsPage {
         // this.map.getMyLocation().then((myLocation: MyLocation) => {
         //   console.log(myLocation);
         // });
-
         this.map.addMarker({
             title: 'Current Location',
             icon: 'red',

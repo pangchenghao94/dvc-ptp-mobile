@@ -40,11 +40,12 @@ export class DrawingCanvasComponent {
         this.canvasElement = this.canvas.nativeElement;
         
         let deductHeight: any =0;
-        if(this.platform.is("iphone"))
-            deductHeight = 44 + 63 + 2;
+        if(this.platform.is("ios"))
+            deductHeight = 44 + 63 + 2 + 26;    
         else if(this.platform.is("android"))
             deductHeight = 56 + 54 + 2;
-
+        
+        console.log("deductHeight: " + deductHeight);
         this.renderer.setAttribute(this.canvasElement, 'width', this.platform.width() + '');
         this.renderer.setAttribute(this.canvasElement, 'height', this.platform.height() - deductHeight + '');
     }
@@ -60,8 +61,8 @@ export class DrawingCanvasComponent {
     handleStart(ev){
         let deductHeight: any = 0;
 
-        if(this.platform.is("iphone"))
-            deductHeight = 44;
+        if(this.platform.is("ios"))
+            deductHeight = 44 + 26;
         else if(this.platform.is("android"))
             deductHeight = 56;
 
@@ -72,8 +73,8 @@ export class DrawingCanvasComponent {
     handleMove(ev){
         let deductHeight: any = 0;
 
-        if(this.platform.is("iphone"))
-            deductHeight = 44;
+        if(this.platform.is("ios"))
+            deductHeight = 44 + 26;
         else if(this.platform.is("android"))
             deductHeight = 56;
 

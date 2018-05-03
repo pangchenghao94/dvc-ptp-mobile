@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, Platform, normalizeURL } from 'ionic-angular';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 @IonicPage()
 @Component({
@@ -8,18 +9,26 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class ModalFloorPlanPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, private screenOrientation: ScreenOrientation) {
   }
 
   ionViewDidLoad() {}
 
   ionViewDidEnter(){
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     var canvas = <HTMLCanvasElement>document.getElementById("myCanvas");
     var context = canvas.getContext("2d");
 
     if(this.navParams.get("uri") != null){
       var img = new Image();
-      img.src = this.navParams.get("uri");
+      
+      var img_src = this.navParams.get("uri");
+      if(this.platform.is("ios"))
+        img.src = normalizeURL(img_src);
+      else  
+        img.src = img_src;
+
       img.onload = function() {
         context.drawImage(img, 0, 0);
       };    
@@ -38,6 +47,7 @@ export class ModalFloorPlanPage {
   }
 
   closeModal(){
+    this.screenOrientation.unlock();
     this.viewCtrl.dismiss();
   }
 }
