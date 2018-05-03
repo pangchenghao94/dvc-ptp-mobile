@@ -95,11 +95,10 @@ export class ModalExhibitPage {
 
   takePicture(sourceType){
     let camera_opts = {
-      quality: 90,
+      quality: 80,
       sourceType: sourceType,
       saveToPhotoAlbum: false,
       correctOrientation: true,
-
       targetWidth: 1000,
       targetHeight: 1000,
       encodingType: this.camera.EncodingType.JPEG
