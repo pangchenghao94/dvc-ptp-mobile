@@ -79,7 +79,7 @@ export class ModalGpsPage {
 
   loadMap() {
     let mapElement = document.getElementById('mapCanvas');
-    
+  
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
@@ -118,5 +118,6 @@ export class ModalGpsPage {
           });
 
       });
+    
   }
 }
