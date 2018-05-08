@@ -18,6 +18,7 @@ export class HomePage {
   }
 
   ionViewDidEnter(){
+    this.assignments = {};
     this.getAssignments();
   }
 
