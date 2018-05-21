@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Platform, normalizeURL } from 'ionic-angular';
-import { GeneralProvider } from '../../../providers/general/general';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 @IonicPage()

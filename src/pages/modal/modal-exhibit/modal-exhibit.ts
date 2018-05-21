@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ActionSheetController, Platform, AlertController, Alert, ModalController, normalizeURL } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ActionSheetController, Platform, ModalController, normalizeURL } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { FileTransferObject, FileTransfer, FileUploadOptions } from '@ionic-native/file-transfer';
+import { Camera } from '@ionic-native/camera';
 import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
 import { GeneralProvider } from '../../../providers/general/general';
-import { AuthProvider } from '../../../providers/auth/auth';
 import { Exhibit } from '../../../models/exhibit';
 import { ExhibitItem } from '../../../models/exhibit_item';
-import { normalizeUrl } from 'ionic-angular/navigation/deep-linker';
 
 /**
  * Generated class for the ModalExhibitPage page.
@@ -33,9 +30,8 @@ export class ModalExhibitPage {
   floorPlanURI: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,  private fb: FormBuilder,
-    private camera: Camera, private transfer: FileTransfer, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController,
-    private platform: Platform, private filePath: FilePath, private general: GeneralProvider, private file: File, private auth: AuthProvider,
-    private modalCtrl: ModalController) {
+    private camera: Camera, private actionSheetCtrl: ActionSheetController, private platform: Platform, private filePath: FilePath, 
+    private general: GeneralProvider, private file: File, private modalCtrl: ModalController) {
 
       this.poDetailsForm = this.fb.group({
         exhibit_id: '',

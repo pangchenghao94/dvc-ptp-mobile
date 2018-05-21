@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { GeneralProvider } from '../../providers/general/general';
 import { AuthProvider } from '../../providers/auth/auth';
 import { User } from '../../models/user';
@@ -12,6 +12,7 @@ import { User } from '../../models/user';
 export class ProfilePage {
   user : User = new User();
   loading: any;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private general: GeneralProvider, private auth: AuthProvider, 
     private modalCtrl: ModalController) {
   }

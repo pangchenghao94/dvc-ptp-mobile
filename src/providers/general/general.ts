@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { AlertController, LoadingController, ToastController, Loading } from 'ionic-angular';
+import { AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 
 @Injectable()

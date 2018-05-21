@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Loading, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { GeneralProvider } from '../../providers/general/general';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -34,7 +34,7 @@ export class InDFormPage {
   loading: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, private modalCtrl: ModalController, 
-    private general: GeneralProvider, private auth: AuthProvider, private fileTransfer: FileTransfer, private file: File, private platform: Platform) {      
+    private general: GeneralProvider, private auth: AuthProvider, private fileTransfer: FileTransfer, private file: File) {      
       this.general.getAuthObject().then((val) => {
         this.authObj = val;
       }).catch((err) => {
@@ -171,8 +171,6 @@ export class InDFormPage {
 
             this.exhibitData.exhibitItems = responseData.exhibitItems;
 
-            let dl_premiseLocationURL = this.auth.getApiURL() + "api/download/premise_location_drawing"; 
-            
             let postData = JSON.parse(JSON.stringify(this.authObj));
             postData.data = {
               exhibit_id             : this.exhibitData.exhibit.exhibit_id,

@@ -20,13 +20,11 @@ export class LoginPage {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      // apiURL: 'http://192.168.43.169/'
     });
 
   }
 
   login(){
-    // this.auth.setApiURL(this.loginForm.get('apiURL').value);
     let loading = this.general.displayLoading("Please wait...");
   
     loading.present();

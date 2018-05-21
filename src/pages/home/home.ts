@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { GeneralProvider } from '../../providers/general/general';
@@ -14,7 +14,7 @@ export class HomePage {
   assignments: any;
   emptyAssignment: boolean = false;
 
-  constructor(public navCtrl: NavController, private auth: AuthProvider, private general: GeneralProvider, private renderer: Renderer2) {
+  constructor(public navCtrl: NavController, private auth: AuthProvider, private general: GeneralProvider) {
   }
 
   ionViewDidEnter(){
@@ -57,9 +57,6 @@ export class HomePage {
         else{
           this.assignments = responseData.data;
           Object.keys(this.assignments).length > 0 ? this.emptyAssignment = false : this.emptyAssignment = true;
-          // if(this.generateAssignmentList(responseData.data)){
-          //   return true;
-          // }
         }
       }, 
       (err) =>{
